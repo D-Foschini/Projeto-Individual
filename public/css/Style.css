@@ -1,0 +1,10 @@
+.dyno{
+    width: 45%;
+}
+.card{
+    border: 5px;
+}
+.dyno,
+img{
+    width: 50%;
+}
