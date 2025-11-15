@@ -41,9 +41,12 @@
 
     <div class="backimg column pic1" id="screen_1">
         <div class="newcar">
-            <div>
+            <div style="display: flex;">
                 <button class="butPad">
                     <img class="icon" src="assets/new.png">Add New Car
+                </button>
+                <button class="butPad">
+                    <img class="icon" src="assets/remove.png">Remove a Car
                 </button>
             </div>
         </div>
@@ -88,29 +91,47 @@
             <div class="right">
                 <div class="aboutcar">
                     <h2>[NOME DO CARRO]</h2>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                    id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                        id est laborum.</p>
                 </div>
-                <div class="dyno">
-                    <canvas id="myChart"></canvas>
+                <div class="aboutcar quick">
+                    <p>• Country: Japan</p>
+                    <p>• Year: 1999</p>
+                    <p>• Type: Sedan</p>
+                    <p>• Transmission: Manual</p>
+                    <p>• Number of gears: 6</p>
+                    <p>• Drivetrain: AWD</p>
+                    <p>• Engine: RB25 series</p>
+                    <p>• Cylinders alignment: Line 6</p>
+                    <p>• 0-100 km/h : 7.7 Seconds</p>
                 </div>
             </div>
         </div>
     </div>
+    <div class="backimg column pic1" id="screen_3">
+        <div class="insert">
+            </div>
+        </div>
+
+    </div>
+
     <!-- footer do site  -->
 
     <div class="foot">
         <p>Copyright © 2025 SHAKAI CLUB. All rights reserved</p>
+        <p>We do not condone street racing. Follow traffic rules at all times.</p>
     </div>
 
 </body>
 <script>
-        document.getElementById("screen_1").style.display = "none";
+    document.getElementById("screen_1").style.display = "none";
+    document.getElementById("screen_2").style.display = "none";
+
 
     function onc_catalog() {
         document.getElementById("screen_1").style.display = "flex";
@@ -120,17 +141,13 @@
     const ctx = document.getElementById('myChart');
 
 
-
-    var tophp = 455;
-    var nome = '2021 BMW M3 Competition (G80)';
-
     new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
             datasets: [{
                 label: 'HorsePower [HP]',
-                data: [45, 70, 120, 190, 245, 295, 335, 375, 410, 430, 450, tophp, 430, 380, 300],
+                data: [45, 70, 120, 190, 245, 295, 335, 375, 410, 430, 450, 455, 430, 380, 300],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderWidth: 3,
@@ -155,9 +172,10 @@
             },
             stacked: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: nome
+                legend: {
+                    labels: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
                 }
             },
             scales: {
@@ -171,7 +189,13 @@
                         color: 'rgba(255, 99, 132, 1)'
                     },
                     min: 0,
-                    max: tophp + 200
+                    max: 700,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
                 },
                 y1: {
                     type: 'linear',
@@ -183,12 +207,24 @@
                         color: 'rgba(54, 162, 235, 1)'
                     },
                     min: 0,
-                    max: tophp + 200
+                    max: 700,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
                 },
                 x: {
                     title: {
                         display: true,
                         text: 'Engine Speed [RPM]',
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
                         color: 'rgba(255, 255, 255, 0.7)'
                     }
                 }
@@ -197,7 +233,7 @@
                 point: {
                     radius: 0
                 }
-            },
+            }
         }
     });
 
