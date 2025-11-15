@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/Style.css" />
+    <title>Shakai Club</title>
+</head>
+
+<body>
+
+    <!-- hotbar do site -->
+
+    <div class="top">
+
+        <div>
+            <button class="butPad" id="but1" onclick="onc_exit()">
+                <img class="icon" src="assets/help.png">Help
+            </button>
+        </div>
+
+        <div class="title">
+            <a href="index.html">
+                <button class="titlebut"></button>
+            </a>
+            <img class="icon big" src="assets/logo.png">
+            <H1>SHAKAI CLUB</H1>
+        </div>
+
+        <div>
+            <button class="butPad">
+                <img class="icon" src="assets/exit.png">Exit
+            </button>
+        </div>
+
+    </div>
+
+    <!-- site em si -->
+
+    <div class="backimg column pic1" id="screen_1">
+        <div class="newcar">
+            <div>
+                <button class="butPad">
+                    <img class="icon" src="assets/new.png">Add New Car
+                </button>
+            </div>
+        </div>
+        <div class="catalog">
+            <div class=" kardcar"></div>
+            <div class=" kardcar"></div>
+            <div class=" kardcar"></div>
+            <div class=" kardcar"></div>
+            <div class=" kardcar"></div>
+        </div>
+    </div>
+
+    <div class="backimg column pic1" id="screen_2">
+        <div class="newcar">
+            <div>
+                <button class="butPad">
+                    <img class="icon" src="assets/catalog.png" onclick="onc_catalog()">Catalog
+                </button>
+            </div>
+        </div>
+        <div class="leftright">
+            <div class="left">
+
+                <div class="dyno">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="kpicard">
+                    <div class="kpi" id="kpi_hp">
+                        HP: 455
+                    </div>
+                    <div class="kpi" id="kpi_tqr">
+                        FT-LB: 445
+                    </div>
+                    <div class="kpi" id="kpi_drv">
+                        PS: 480
+                    </div>
+                    <div class="kpi" id="kpi_tqr">
+                        MASS: 1742kg
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="aboutcar">
+                    <h2>[NOME DO CARRO]</h2>
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                    id est laborum.</p>
+                </div>
+                <div class="dyno">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer do site  -->
+
+    <div class="foot">
+        <p>Copyright © 2025 SHAKAI CLUB. All rights reserved</p>
+    </div>
+
+</body>
+<script>
+        document.getElementById("screen_1").style.display = "none";
+
+    function onc_catalog() {
+        document.getElementById("screen_1").style.display = "flex";
+        document.getElementById("screen_2").style.display = "none";
+    }
+
+    const ctx = document.getElementById('myChart');
+
+
+
+    var tophp = 455;
+    var nome = '2021 BMW M3 Competition (G80)';
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
+            datasets: [{
+                label: 'HorsePower [HP]',
+                data: [45, 70, 120, 190, 245, 295, 335, 375, 410, 430, 450, tophp, 430, 380, 300],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderWidth: 3,
+                lineTension: 0.3,
+                yAxisID: 'y',
+
+            }, {
+                label: 'Torque [FT-LB]',
+                data: [240, 245, 315, 400, 430, 445, 440, 440, 430, 410, 395, 365, 325, 265, 200],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderWidth: 3,
+                lineTension: 0.3,
+                yAxisID: 'y1'
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            stacked: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: nome
+                }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'HorsePower [HP]',
+                        color: 'rgba(255, 99, 132, 1)'
+                    },
+                    min: 0,
+                    max: tophp + 200
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Torque [FT-LB]',
+                        color: 'rgba(54, 162, 235, 1)'
+                    },
+                    min: 0,
+                    max: tophp + 200
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Engine Speed [RPM]',
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            },
+        }
+    });
+
+</script>
+
+</html>

@@ -1,9 +1,55 @@
 .dyno {
-  width: 45%;
+  width: 90%;
+  margin: 30px;
+  background-color: #464646;
+  border: solid 1px #ffffff;
+  border-radius: 10px;
 }
-.dyno,
-img {
-  width: 50%;
+
+p{
+ font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+.kpicard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+}
+.aboutcar{
+  opacity: 0.7;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.kpi {
+  background-color: #464646;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #ffffff;
+  border-radius: 4px;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  padding: 3px;
 }
 body {
   margin: 0px;
@@ -29,7 +75,7 @@ body {
   display: flex;
   width: 100%;
   height: 90px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   box-shadow: 0 2px 5px 10% #00000096;
   border-top: 1px solid #ffffff;
@@ -65,6 +111,22 @@ body {
 h2 {
   font-size: 35px;
 }
+.titlebut {
+  background: none;
+  height: 100%;
+  width: 340px;
+  opacity: 0.3;
+  position: fixed;
+  border: none;
+  font-size: 35px;
+  font-style: normal;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  font-style: italic;
+}
+.titlebut:hover {
+  cursor: pointer;
+}
 
 .loginfield {
   color: #ffffff;
@@ -91,6 +153,7 @@ h2 {
 }
 .loginfield .butPad {
   margin: 30px;
+  opacity: 0.7;
 }
 
 .input_cadastro {
@@ -152,8 +215,6 @@ h2 {
   letter-spacing: 0.5px;
 }
 .errolog {
-  display: flex;
-  justify-content: flex-start;
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 13px;
@@ -243,4 +304,47 @@ h1 {
   border: #ffffff solid;
   border-width: 1px;
   width: 100%;
+}
+.newcar {
+  border-bottom: 1px solid #ffffff;
+  justify-content: center;
+  display: flex;
+}
+.newcar .butPad {
+  width: 150px;
+  height: 40px;
+}
+.column {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.leftright{
+  display: flex;
+  width: 100%;
+}
+.left{
+  width: 50%;
+  height: 500px;
+}
+.right{
+  width: 50%;
+  height: 500px;
+}
+.kardcar {
+  opacity: 0.7;
+  background-color: #464646;
+  width: 20%;
+  height: 80%;
+  margin: 30px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 5px 0 #00000096;
+}
+.catalog {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 100%;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
