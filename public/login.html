@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
+    <link rel="icon" href="assets/logo.png">
+
     <title>Shakai Club | Login</title>
 </head>
 
@@ -16,7 +18,7 @@
     <div class="top center">
 
         <div class="title">
-           <a href="index.html">
+            <a href="index.html">
                 <button class="titlebut"></button>
             </a>
             <img class="icon big" src="assets/logo.png">
@@ -41,7 +43,8 @@
                     </button>
                 </div>
                 <div class="errolog" id="error_fields"></div>
-                <div class="text">Does not have an account? Create one <a style="color: #29aa63;" href="register.html">here</a></div>
+                <div class="text">Does not have an account? Create one <a style="color: #29aa63;"
+                        href="register.html">here</a></div>
             </div>
         </div>
     </div>
@@ -57,11 +60,68 @@
 
     function onc_login() {
         let email = inp_email.value;
+        let passwrd = inp_passwrd.value;
+        console.log(email)
 
-        if (email.length > 45 || email.includes("@") || email.endsWith(".com") || email.length == 0) {
+        if (email.length > 45 || !email.includes("@") || !email.endsWith(".com") || email.length == 0) {
             error_email.innerHTML = `• Must be a valid email`
-            valid = false;
+            finalizarAguardar();
+            return false;
         }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", passwrd);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: passwrd
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "dashboard.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Oh no! Something went wrong...");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+        function sumirMensagem() {
+        error_fields.style.display = "none"
     }
 </script>
 

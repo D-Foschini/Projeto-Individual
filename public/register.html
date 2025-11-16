@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
+    <link rel="icon" href="assets/logo.png">
+
     <title>Shakai Club | Register</title>
 </head>
 
@@ -66,7 +68,7 @@
 
         let valid = true;
 
-        if (email.length > 45 || email.includes("@") || email.endsWith(".com") || email.length == 0) {
+        if (email.length > 45 || !email.includes("@") || !email.endsWith(".com") || email.length === 0) {
             error_email.innerHTML = `• Email is not valid.`
             valid = false;
         }
@@ -95,9 +97,50 @@
             valid = false;
         }
 
-        if (!valid) return;
+        if (valid == true) {
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nick,
+                    emailServer: email,
+                    senhaServer: psswrd,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
 
-        alert("Account created!");
+                    if (resposta.ok) {
+                        cardErro.style.display = "block";
+
+                        mensagem_erro.innerHTML =
+                            "Your account was registered, Redirecting to Login...";
+
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
+
+                        limparFormulario();
+                        finalizarAguardar();
+                    } else {
+                        throw "Oh no! Something went wrong...";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    finalizarAguardar();
+                });
+
+            return false;
+        }
+      validacoes = false;
+
+
     }
 </script>
 
