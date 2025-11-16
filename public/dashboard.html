@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
-    <title>Shakai Club</title>
+    <title>Shakai Club | Garage</title>
 </head>
 
 <body>
@@ -39,27 +39,22 @@
 
     <!-- site em si -->
 
-    <div class="backimg column pic1" id="screen_1">
+    <div class="backimg column pic1" id="screen_1"> <!--Catalogo-->
         <div class="newcar">
             <div style="display: flex;">
-                <button class="butPad">
+                <button class="butPad" onclick="onc_add()">
                     <img class="icon" src="assets/new.png">Add New Car
                 </button>
-                <button class="butPad">
+                <button class="butPad" onclick="onc_remove()">
                     <img class="icon" src="assets/remove.png">Remove a Car
                 </button>
             </div>
         </div>
         <div class="catalog">
             <div class=" kardcar"></div>
-            <div class=" kardcar"></div>
-            <div class=" kardcar"></div>
-            <div class=" kardcar"></div>
-            <div class=" kardcar"></div>
         </div>
     </div>
-
-    <div class="backimg column pic1" id="screen_2">
+    <div class="backimg column pic1" id="screen_2"> <!--Dashboard Carro X-->
         <div class="newcar">
             <div>
                 <button class="butPad">
@@ -75,49 +70,185 @@
                 </div>
                 <div class="kpicard">
                     <div class="kpi" id="kpi_hp">
-                        HP: 455
+                        HP: 276
                     </div>
                     <div class="kpi" id="kpi_tqr">
-                        FT-LB: 445
+                        FT-LB: 285
                     </div>
-                    <div class="kpi" id="kpi_drv">
-                        PS: 480
+                    <div class="kpi" id="kpi_bar">
+                        BAR: 280
                     </div>
-                    <div class="kpi" id="kpi_tqr">
-                        MASS: 1742kg
+                    <div class="kpi" id="kpi_mass">
+                        MASS: 1,560kg
                     </div>
                 </div>
             </div>
             <div class="right">
                 <div class="aboutcar">
-                    <h2>[NOME DO CARRO]</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                        id est laborum.</p>
+                    <h2 id="kpi_name">Nissan Skyline R34</h2>
+                    <p id="kpi_about">The Nissan Skyline GT-R R34 is an iconic Japanese sports car produced from 1999 to 2002,
+                        powered by the twin-turbo RB26DETT engine and advanced ATTESA E-TS Pro AWD system.
+                        Its aggressive design, sharp handling, and strong tuning potential made it a
+                        legend in motorsport and JDM culture, remaining highly sought-after today for its performance
+                        technology, and unmistakable presence.</p>
                 </div>
                 <div class="aboutcar quick">
-                    <p>• Country: Japan</p>
-                    <p>• Year: 1999</p>
-                    <p>• Type: Sedan</p>
-                    <p>• Transmission: Manual</p>
-                    <p>• Number of gears: 6</p>
-                    <p>• Drivetrain: AWD</p>
-                    <p>• Engine: RB25 series</p>
-                    <p>• Cylinders alignment: Line 6</p>
-                    <p>• 0-100 km/h : 7.7 Seconds</p>
+                    <p id="kpi_country">• Country: Japan</p>
+                    <p id="kpi_year">• Year: 1999</p>
+                    <p id="kpi_type">• Type: Sedan</p>
+                    <p id="kpi_tran">• Transmission: Manual</p>
+                    <p id="kpi_gear">• Number of gears: 6</p>
+                    <p id="kpi_drive">• Drivetrain: AWD</p>
+                    <p id="kpi_engine">• Engine: RB25 series</p>
+                    <p id="kpi_cylinder">• Cylinders alignment: Line 6</p>
+                    <p id="kpi_acceleration">• 0-100 km/h : 5.5 Seconds</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="backimg column pic1" id="screen_3">
-        <div class="insert">
+    <div class="backimg column pic1" id="screen_3"> <!--Menu Adicionar Carro X-->
+        <div class="leftright">
+            <div class="left">
+
+                <div class="dyno">
+                    <p>Type:</p>
+                    <select name="" id="sel_graphType" onchange="ons_change()">
+                        <option value="0">Precise</option>
+                        <option value="1">Dynamic</option>
+                    </select>
+                    <h2>Dyno Graph:</h2>
+                    <div class="gen_graph" id="precise">
+                        <div>
+                            <p>RPM</p>
+                            <p>1000</p>
+                            <p>1500</p>
+                            <p>2000</p>
+                            <p>2500</p>
+                            <p>3000</p>
+                            <p>3500</p>
+                            <p>4000</p>
+                            <p>4500</p>
+                            <p>5000</p>
+                            <p>5500</p>
+                            <p>6000</p>
+                            <p>6500</p>
+                            <p>7000</p>
+                            <p>7500</p>
+                            <p>8000</p>
+                        </div>
+                        <div>
+                            <p>HorsePower</p>
+                            <input type="number" id="inp_hp_10">
+                            <input type="number" id="inp_hp_15">
+                            <input type="number" id="inp_hp_20">
+                            <input type="number" id="inp_hp_25">
+                            <input type="number" id="inp_hp_30">
+                            <input type="number" id="inp_hp_35">
+                            <input type="number" id="inp_hp_40">
+                            <input type="number" id="inp_hp_45">
+                            <input type="number" id="inp_hp_50">
+                            <input type="number" id="inp_hp_55">
+                            <input type="number" id="inp_hp_60">
+                            <input type="number" id="inp_hp_65">
+                            <input type="number" id="inp_hp_70">
+                            <input type="number" id="inp_hp_75">
+                            <input type="number" id="inp_hp_80">
+                        </div>
+                        <div>
+                            <p>Torque</p>
+                            <input type="number" id="inp_trq_10">
+                            <input type="number" id="inp_trq_15">
+                            <input type="number" id="inp_trq_20">
+                            <input type="number" id="inp_trq_25">
+                            <input type="number" id="inp_trq_30">
+                            <input type="number" id="inp_trq_35">
+                            <input type="number" id="inp_trq_40">
+                            <input type="number" id="inp_trq_45">
+                            <input type="number" id="inp_trq_50">
+                            <input type="number" id="inp_trq_55">
+                            <input type="number" id="inp_trq_60">
+                            <input type="number" id="inp_trq_65">
+                            <input type="number" id="inp_trq_70">
+                            <input type="number" id="inp_trq_75">
+                            <input type="number" id="inp_trq_80">
+                        </div>
+                    </div>
+                    <div class="gen_graph" id="dynamic">
+                        <div>
+                            <p>RPM</p>
+                            <input type="number" id="inp_rpm">
+                        </div>
+                        <div>
+                            <p>HorsePower</p>
+                            <input type="number" id="inp_hp_top">
+
+                        </div>
+                        <div>
+                            <p>Torque</p>
+                            <input type="number" id="inp_trq_top">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="aboutcar orient">
+                    <div>
+                        <p>Name/Model of the Car:</p>
+                        <input type="text" id="inp_car" class="inp_custom">
+                        <p>About the Car:</p>
+                        <input type="text" id="inp_about" class="inp_custom">
+                    </div>
+                    <div>
+                        <p>Weight (KG):</p>
+                        <input type="number" id="inp_mass" class="inp_custom">
+                        <p>Turbo Pressure (BAR):</p>
+                        <input type="number" id="inp_bar" class="inp_custom">
+                    </div>
+                </div>
+                <div class="aboutcar quick inp" id="inpQuick">
+                    <div>
+                        <h2>Model</h2>
+                        <p>Country:</p>
+                        <input type="text" id="inp_country">
+                        <p>Year:</p>
+                        <input type="number" id="inp_year">
+                        <p>Type:</p>
+                        <input type="text" id="inp_type">
+                    </div>
+                    <div>
+                        <h2>Powetrain</h2>
+                        <p>Transmission:</p>
+                        <input type="text" id="inp_trans">
+                        <p>Gears:</p>
+                        <input type="number" id="inp_gearQtd">
+                        <p>Drivetrain:</p>
+                        <input type="text" id="inp_drvTra">
+                    </div>
+                    <div>
+                        <h2>Engine</h2>
+                        <p>Model:</p>
+                        <input type="text" id="inp_model">
+                        <p>Cylinders alignment:</p>
+                        <input type="text" id="inp_cylinder">
+                        <p>0-100 km/h (sec):</p>
+                        <input type="number" id="inp_speed">
+                    </div>
+                </div>
             </div>
         </div>
-
+        <div class="newcar">
+            <div style="display: flex; margin-left: 500px;">
+                <button class="butPad" onclick="onc_confirm()">
+                    <img class="icon" src="assets/new.png">Confirm
+                </button>
+                <button class="butPad" onclick="onc_cancel()">
+                    <img class="icon" src="assets/remove.png">Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
 
     <!-- footer do site  -->
@@ -130,24 +261,76 @@
 </body>
 <script>
     document.getElementById("screen_1").style.display = "none";
-    document.getElementById("screen_2").style.display = "none";
-
+    // document.getElementById("screen_2").style.display = "none";
+    document.getElementById("screen_3").style.display = "none";
+    document.getElementById("dynamic").style.display = "none";
 
     function onc_catalog() {
         document.getElementById("screen_1").style.display = "flex";
         document.getElementById("screen_2").style.display = "none";
+        document.getElementById("screen_3").style.display = "none";
+    }
+    function onc_add() {
+        document.getElementById("screen_3").style.display = "flex";
+        document.getElementById("screen_1").style.display = "none";
+        document.getElementById("screen_2").style.display = "none";
+    }
+    function onc_cancel() {
+        document.getElementById("screen_1").style.display = "flex";
+        document.getElementById("screen_2").style.display = "none";
+        document.getElementById("screen_3").style.display = "none";
+    }
+    function ons_change() {
+        if (sel_graphType.value == 0) {
+            document.getElementById("precise").style.display = "flex";
+            document.getElementById("dynamic").style.display = "none";
+        } else {
+            document.getElementById("precise").style.display = "none";
+            document.getElementById("dynamic").style.display = "flex";
+        }
     }
 
+    //informações do motor  
+    var hpKpi = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
+    var trqKpi = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
+    var barKpi = document.getElementById("kpi_bar"); 
+    var massKpi = document.getElementById("kpi_mass");
+
+    //informações basicas do carro  
+    var model = document.getElementById("kpi_name");
+    var about = document.getElementById("kpi_about");
+
+    //informações tecnicas do carro  
+    var contry = document.getElementById("kpi_country");
+    var year = document.getElementById("kpi_year");
+    var type = document.getElementById("kpi_type");
+    var transmission = document.getElementById("kpi_tran");
+    var gear = document.getElementById("kpi_gear");
+    var drive = document.getElementById("kpi_drive");
+    var cylinder = document.getElementById("kpi_cylinder");
+    var engine = document.getElementById("kpi_engine");
+    var acceleration = document.getElementById("kpi_acceleration");
+
+    //dados dos graficos  
+    var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
+    var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
+    
+    //fazer codigo cabuloso abaixo:
+
+
+
+
+
+    //dinanometro abaixo:
     const ctx = document.getElementById('myChart');
-
-
+    
     new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
             datasets: [{
                 label: 'HorsePower [HP]',
-                data: [45, 70, 120, 190, 245, 295, 335, 375, 410, 430, 450, 455, 430, 380, 300],
+                data: hp,
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderWidth: 3,
@@ -156,7 +339,7 @@
 
             }, {
                 label: 'Torque [FT-LB]',
-                data: [240, 245, 315, 400, 430, 445, 440, 440, 430, 410, 395, 365, 325, 265, 200],
+                data: trq,
                 borderColor: 'rgba(54, 162, 235, 1)',
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderWidth: 3,
@@ -189,7 +372,7 @@
                         color: 'rgba(255, 99, 132, 1)'
                     },
                     min: 0,
-                    max: 700,
+                    max: 350,
                     ticks: {
                         color: 'rgba(255, 255, 255, 0.7)'
                     },
@@ -207,7 +390,7 @@
                         color: 'rgba(54, 162, 235, 1)'
                     },
                     min: 0,
-                    max: 700,
+                    max: 350,
                     ticks: {
                         color: 'rgba(255, 255, 255, 0.7)'
                     },
