@@ -15,7 +15,7 @@
 
     <div class="top center">
 
-        <div class="title" >
+        <div class="title">
             <a href="index.html">
                 <button class="titlebut"></button>
             </a>
@@ -32,19 +32,19 @@
             <div class="loginfield">
                 <h2>Register an Account</h2>
                 <input class="input_cadastro" id="inp_cadastro" placeholder="Nickname">
-                <div class="errolog" id="error_cadastro">• Must not include a special character</div>
-                <input class="input_cadastro" id="inp_cadastro" placeholder="Email">
-                <div class="errolog" id="error_cadastro">• Must be a valid email</div>
-                <input class="input_cadastro" id="inp_cadastro" placeholder="Password" type="password">
-                <div class="errolog" id="error_pswrd">• Must contain at least 3 numbers</div>
-                <input class="input_cadastro" id="inp_cadastro" placeholder="Confirm Password" type="password">
-                <div class="errolog" id="error_confirm">• The password does not match</div>
+                <div class="errolog" id="error_nick"></div>
+                <input class="input_cadastro" id="inp_email" placeholder="Email">
+                <div class="errolog" id="error_email"></div>
+                <input class="input_cadastro" id="inp_pass" placeholder="Password" type="password">
+                <div class="errolog" id="error_pswrd"></div>
+                <input class="input_cadastro" id="inp_confpass" placeholder="Confirm Password" type="password">
+                <div class="errolog" id="error_confirm"></div>
                 <div>
-                    <button class="butPad">
+                    <button class="butPad" onclick="onc_register()">
                         <img class="icon" src="assets/reigster.png">Register
                     </button>
                 </div>
-                <div class="errolog" id="error_fields">• Must complete all fields / already exists (login)</div>
+                <div class="errolog" id="error_exists"></div>
             </div>
         </div>
     </div>
@@ -57,6 +57,48 @@
 
 </body>
 <script>
+
+    function onc_register() {
+        let nick = inp_cadastro.value;
+        let email = inp_email.value;
+        let psswrd = inp_pass.value;
+        let confirm = inp_confpass.value;
+
+        let valid = true;
+
+        if (email.length > 45 || email.includes("@") || email.endsWith(".com") || email.length == 0) {
+            error_email.innerHTML = `• Email is not valid.`
+            valid = false;
+        }
+        if (psswrd.length > 45 || psswrd.length < 5) {
+            error_pswrd.innerHTML = `• Password is not valid`
+            valid = false;
+        }
+        if (psswrd !== confirm) {
+            error_confirm.innerHTML = `• Password does not match`;
+            valid = false;
+        }
+        if (
+            nick.length < 5 ||
+            nick.length > 20 ||
+            nick.length == 0 ||
+            nick.includes(" ") ||
+            nick.includes("<") ||
+            nick.includes(">") ||
+            nick.includes("!") ||
+            nick.includes("?") ||
+            nick.includes(",") ||
+            nick.includes(".") ||
+            nick.includes("/")
+        ) {
+            error_nick.innerHTML = `• Nickname not valid.`
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        alert("Account created!");
+    }
 </script>
 
 </html>

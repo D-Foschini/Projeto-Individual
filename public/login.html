@@ -31,16 +31,17 @@
         <div class="cardlogin">
             <div class="loginfield">
                 <h2>Login to an Account</h2>
-                <input class="input_cadastro" id="inp_cadastro" placeholder="Email">
-                <div class="errolog" id="error_cadastro">• Must be a valid email</div>
-                <input class="input_cadastro" id="inp_cadastro" placeholder="Password" type="password">
-                <div class="errolog" id="error_pswrd">• Must contain at least 3 numbers</div>
+                <input class="input_cadastro" id="inp_email" placeholder="Email">
+                <div class="errolog" id="error_email"></div>
+                <input class="input_cadastro" id="inp_passwrd" placeholder="Password" type="password">
+                <div class="errolog" id="error_pswrd"></div>
                 <div>
-                    <button class="butPad">
+                    <button class="butPad" onclick="onc_login()">
                         <img class="icon" src="assets/login.png">Login
                     </button>
                 </div>
-                <div class="errolog" id="error_fields">• Account not found / Create an account</div>
+                <div class="errolog" id="error_fields"></div>
+                <div class="text">Does not have an account? Create one <a style="color: #29aa63;" href="register.html">here</a></div>
             </div>
         </div>
     </div>
@@ -53,6 +54,15 @@
 
 </body>
 <script>
+
+    function onc_login() {
+        let email = inp_email.value;
+
+        if (email.length > 45 || email.includes("@") || email.endsWith(".com") || email.length == 0) {
+            error_email.innerHTML = `• Must be a valid email`
+            valid = false;
+        }
+    }
 </script>
 
 </html>
