@@ -466,6 +466,27 @@ h1 {
   margin: 30px;
   border: 1px solid #ffffff;
   box-shadow: 0 2px 5px 0 #00000096;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+.kardcar h2{
+    font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  font-size: 30px;
+  padding: 30px;
+}
+.kardcar div{
+display: block
+}
+.kardcar div .butPad{
+  width: 200px;
+  height: 40px;
 }
 .catalog {
   display: flex;

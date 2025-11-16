@@ -45,20 +45,27 @@
                 <button class="butPad" onclick="onc_add()">
                     <img class="icon" src="assets/new.png">Add New Car
                 </button>
-                <button class="butPad" onclick="onc_remove()">
-                    <img class="icon" src="assets/remove.png">Remove a Car
-                </button>
             </div>
         </div>
         <div class="catalog">
-            <div class=" kardcar"></div>
+            <div class="kardcar">
+                <h2 id="card_car">Nissan Skyline R34</h2>
+                <div>
+                    <button class="butPad" onclick="onc_view()">
+                        <img class="icon" src="assets/view.png">View Car
+                    </button>
+                    <button class="butPad" onclick="onc_remove()">
+                        <img class="icon" src="assets/remove.png">Remove Car
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="backimg column pic1" id="screen_2"> <!--Dashboard Carro X-->
         <div class="newcar">
             <div>
-                <button class="butPad">
-                    <img class="icon" src="assets/catalog.png" onclick="onc_catalog()">Catalog
+                <button class="butPad" onclick="onc_catalog()">
+                    <img class="icon" src="assets/catalog.png">Catalog
                 </button>
             </div>
         </div>
@@ -86,7 +93,8 @@
             <div class="right">
                 <div class="aboutcar">
                     <h2 id="kpi_name">Nissan Skyline R34</h2>
-                    <p id="kpi_about">The Nissan Skyline GT-R R34 is an iconic Japanese sports car produced from 1999 to 2002,
+                    <p id="kpi_about">The Nissan Skyline GT-R R34 is an iconic Japanese sports car produced from 1999 to
+                        2002,
                         powered by the twin-turbo RB26DETT engine and advanced ATTESA E-TS Pro AWD system.
                         Its aggressive design, sharp handling, and strong tuning potential made it a
                         legend in motorsport and JDM culture, remaining highly sought-after today for its performance
@@ -260,8 +268,8 @@
 
 </body>
 <script>
-    document.getElementById("screen_1").style.display = "none";
-    // document.getElementById("screen_2").style.display = "none";
+    // document.getElementById("screen_1").style.display = "none";
+    document.getElementById("screen_2").style.display = "none";
     document.getElementById("screen_3").style.display = "none";
     document.getElementById("dynamic").style.display = "none";
 
@@ -280,6 +288,11 @@
         document.getElementById("screen_2").style.display = "none";
         document.getElementById("screen_3").style.display = "none";
     }
+    function onc_view() {
+        document.getElementById("screen_1").style.display = "none";
+        document.getElementById("screen_2").style.display = "flex";
+        document.getElementById("screen_3").style.display = "none";
+    }
     function ons_change() {
         if (sel_graphType.value == 0) {
             document.getElementById("precise").style.display = "flex";
@@ -290,10 +303,12 @@
         }
     }
 
+    // 
+
     //informações do motor  
     var hpKpi = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
     var trqKpi = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
-    var barKpi = document.getElementById("kpi_bar"); 
+    var barKpi = document.getElementById("kpi_bar");
     var massKpi = document.getElementById("kpi_mass");
 
     //informações basicas do carro  
@@ -314,7 +329,7 @@
     //dados dos graficos  
     var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
     var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
-    
+
     //fazer codigo cabuloso abaixo:
 
 
@@ -323,7 +338,7 @@
 
     //dinanometro abaixo:
     const ctx = document.getElementById('myChart');
-    
+
     new Chart(ctx, {
         type: 'line',
         data: {
