@@ -65,7 +65,6 @@
 
         if (email.length > 45 || !email.includes("@") || !email.endsWith(".com") || email.length == 0) {
             error_email.innerHTML = `• Must be a valid email`
-            finalizarAguardar();
             return false;
         }
         else {
@@ -105,11 +104,10 @@
 
             } else {
 
-                console.log("Oh no! Something went wrong...");
+                error_fields.innerHTML = "Account not found";
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 

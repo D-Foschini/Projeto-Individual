@@ -116,29 +116,26 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        cardErro.style.display = "block";
 
-                        mensagem_erro.innerHTML =
+                        error_exists.innerHTML =
                             "Your account was registered, Redirecting to Login...";
 
-                        setTimeout(() => {
+                        setTimeout(function () {
                             window.location = "login.html";
-                        }, "2000");
+                        }, 1000); // apenas para exibir o loading
 
                         limparFormulario();
-                        finalizarAguardar();
                     } else {
                         throw "Oh no! Something went wrong...";
                     }
                 })
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
-                    finalizarAguardar();
                 });
 
             return false;
         }
-      validacoes = false;
+        validacoes = false;
 
 
     }
