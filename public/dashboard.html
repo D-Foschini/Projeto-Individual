@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
     <link rel="icon" href="assets/logo.png">
+    <script src="./js/sessao.js"></script>
     <title>Shakai Club | Garage</title>
 </head>
 
@@ -22,7 +23,7 @@
             </button>
         </div>
 
-        <div class="title">
+        <div class="title fixtitle">
             <a href="index.html">
                 <button class="titlebut"></button>
             </a>
@@ -30,10 +31,23 @@
             <H1>SHAKAI CLUB</H1>
         </div>
 
-        <div>
-            <button class="butPad">
-                <img class="icon" src="assets/exit.png">Exit
-            </button>
+
+        <div style="display: flex;">
+
+            <div>
+                <button class="butPad profile">
+                    <img class="icon" src="assets/login.png">
+                    <span id="b_usuario">N/A</span>
+                </button>
+            </div>
+
+            <div>
+                <a href="index.html">
+                    <button class="butPad" onclick="onc_exit()">
+                        <img class="icon" src="assets/exit.png">Exit
+                    </button>
+                </a>
+            </div>
         </div>
 
     </div>
@@ -269,6 +283,8 @@
 
 </body>
 <script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
     // document.getElementById("screen_1").style.display = "none";
     document.getElementById("screen_2").style.display = "none";
     document.getElementById("screen_3").style.display = "none";
@@ -304,6 +320,8 @@
         }
     }
 
+
+
     // 
 
     //informações do motor  
@@ -334,9 +352,16 @@
     //dinanometro abaixo:
     const ctx = document.getElementById('myChart');
 
-    function onc_confirm(){
+    function onc_exit() {
+        sessionStorage.NOME_USUARIO = "";
+        sessionStorage.ID_USUARIO = "";
+        sessionStorage.EMAIL_USUARIO = "";
+    }
 
-        
+    function onc_confirm() {
+
+
+
     }
 
 

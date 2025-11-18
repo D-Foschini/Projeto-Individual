@@ -242,7 +242,7 @@ h2 {
   letter-spacing: 0.5px;
   padding: 3px;
   font-size: 15px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .inp input {
@@ -349,6 +349,7 @@ div p {
   letter-spacing: 0.5px;
   color: #ff2f2f;
   font-style: italic;
+  margin: 0px;
 }
 
 .butPad:hover {
@@ -496,4 +497,15 @@ display: block
   flex-wrap: wrap;
   overflow-y: scroll;
   scrollbar-width: none;
+}
+.profile{
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 150px;
+}
+.fixtitle{
+  margin-left: 150px;
+}
+.loginfix{
+  margin-right: 499.5px;
 }

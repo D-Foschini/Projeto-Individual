@@ -41,4 +41,3 @@ CREATE TABLE grafico(
 	horsePower INT,
     torque INT
 );
-

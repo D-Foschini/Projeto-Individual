@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
     <link rel="icon" href="assets/logo.png">
 
@@ -15,9 +16,14 @@
 
     <!-- hotbar do site -->
 
-    <div class="top center">
+    <div class="top">
+        <div>
+            <button class="butPad" id="but1" onclick="onc_exit()">
+                <img class="icon" src="assets/help.png">Help
+            </button>
+        </div>
 
-        <div class="title">
+        <div class="title loginfix">
             <a href="index.html">
                 <button class="titlebut"></button>
             </a>
@@ -93,7 +99,7 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.NOME_USUARIO = json.nick;
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
@@ -118,7 +124,7 @@
         return false;
     }
 
-        function sumirMensagem() {
+    function sumirMensagem() {
         error_fields.style.display = "none"
     }
 </script>
