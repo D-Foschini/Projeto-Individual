@@ -320,63 +320,115 @@
         }
     }
 
+    //informações de usuario
+    var id_user = sessionStorage.ID_USUARIO;
 
-
-    // 
-
-    //informações do motor  
-    var hpKpi = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
-    var trqKpi = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
-    var barKpi = document.getElementById("kpi_bar");
-    var massKpi = document.getElementById("kpi_mass");
-
-    //informações basicas do carro  
-    var model = document.getElementById("kpi_name");
-    var about = document.getElementById("kpi_about");
-
-    //informações tecnicas do carro  
-    var contry = document.getElementById("kpi_country");
-    var year = document.getElementById("kpi_year");
-    var type = document.getElementById("kpi_type");
-    var transmission = document.getElementById("kpi_tran");
-    var gear = document.getElementById("kpi_gear");
-    var drive = document.getElementById("kpi_drive");
-    var cylinder = document.getElementById("kpi_cylinder");
-    var engine = document.getElementById("kpi_engine");
-    var acceleration = document.getElementById("kpi_acceleration");
-
-    //dados dos graficos  
+    //dados dos graficos a mostrar 
     var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
     var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
 
-    //dinanometro abaixo:
-    const ctx = document.getElementById('myChart');
-
+    // terminate session
     function onc_exit() {
         sessionStorage.NOME_USUARIO = "";
         sessionStorage.ID_USUARIO = "";
         sessionStorage.EMAIL_USUARIO = "";
     }
 
-    function onc_confirm() {
+    //informações do motor  
+    var hpKpi_dsh = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
+    var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
+    var barKpi_dsh = document.getElementById("kpi_bar");
+    var massKpi_dsh = document.getElementById("kpi_mass");
 
+    //informações basicas do carro  
+    var model_dsh = document.getElementById("kpi_name");
+    var about_dsh = document.getElementById("kpi_about");
+
+    //informações tecnicas do carro  
+    var contry_dsh = document.getElementById("kpi_country");
+    var year_dsh = document.getElementById("kpi_year");
+    var type_dsh = document.getElementById("kpi_type");
+    var transmission_dsh = document.getElementById("kpi_tran");
+    var gear_dsh = document.getElementById("kpi_gear");
+    var drive_dsh = document.getElementById("kpi_drive");
+    var cylinder_dsh = document.getElementById("kpi_cylinder");
+    var engine_dsh = document.getElementById("kpi_engine");
+    var acceleration_dsh = document.getElementById("kpi_acceleration");
+
+
+    // Export to database! (same as register)
+    function onc_confirm() {
+        //informações do motor  
+        let barKpi = document.getElementById("inp_bar").value;
+        let massKpi = document.getElementById("inp_mass").value;
+
+        //informações basicas do carro  
+        let model = document.getElementById("inp_car").value;
+        let about = document.getElementById("inp_about").value;
+
+        //informações tecnicas do carro  
+        let contry = document.getElementById("inp_country").value;
+        let year = document.getElementById("inp_year").value;
+        let type = document.getElementById("inp_type").value;
+        let transmission = document.getElementById("inp_trans").value;
+        let gear = document.getElementById("inp_gearQtd").value;
+        let drive = document.getElementById("inp_drvTra").value;
+        let cylinder = document.getElementById("inp_cylinder").value;
+        let engine = document.getElementById("inp_model").value;
+        let acceleration = document.getElementById("inp_speed").value;
+        let valid = true;
+
+        // Fazendo validação dos campos (aceitavel ter algo em branco)
+        if (model == "") {
+            valid = false;
+            model.placeholder = "MUST HAVE A MODEL NAME"
+            model.style = "border: solid 2px red;"
+        }
+
+
+        if (valid == true) {
+            // Enviando o valor da nova input
+            fetch("/veiculos/carros", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // exportando infomações em JSON
+                    idServer: id_user,
+                    modelServer: model,
+                    descrServer: about,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        setTimeout(function () {
+                            document.getElementById("screen_1").style.display = "flex";
+                            document.getElementById("screen_2").style.display = "none";
+                            document.getElementById("screen_3").style.display = "none";
+                        }, 1000); // apenas para exibir o loading
+
+                        limparFormulario();
+                    } else {
+                        throw "Oh no! Something went wrong...";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
+        validacoes = false;
 
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    //dinanometro abaixo:
+    const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
         type: 'line',
