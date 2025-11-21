@@ -25,7 +25,7 @@
 
         <div class="title fixtitle">
             <a href="index.html">
-                <button class="titlebut"></button>
+                <button class="titlebut" onclick="onc_exit"></button>
             </a>
             <img class="icon big" src="assets/logo.png">
             <H1>SHAKAI CLUB</H1>
@@ -63,16 +63,9 @@
             </div>
         </div>
         <div class="catalog" id="catalog_car">
-            <div class="kardcar">
-                <h2 id="card_car">Nissan Skyline R34</h2>
-                <div>
-                    <button class="butPad" onclick="onc_view()">
-                        <img class="icon" src="assets/view.png">View Car
-                    </button>
-                    <button class="butPad" onclick="onc_remove()">
-                        <img class="icon" src="assets/remove.png">Remove Car
-                    </button>
-                </div>
+            <div class="text">
+                <span style="height: 35%;"></span>
+                <h2>No cars found</h2>
             </div>
         </div>
     </div>
@@ -303,11 +296,6 @@
     function onc_cancel() {
         document.getElementById("screen_1").style.display = "flex";
         document.getElementById("screen_2").style.display = "none";
-        document.getElementById("screen_3").style.display = "none";
-    }
-    function onc_view() {
-        document.getElementById("screen_1").style.display = "none";
-        document.getElementById("screen_2").style.display = "flex";
         document.getElementById("screen_3").style.display = "none";
     }
     function ons_change() {
@@ -561,7 +549,8 @@
                 catalog_car.innerHTML = ``;
                 for (let i = 0; i < resultadoVeiculo.length; i++) {
                     const element = resultadoVeiculo[i];
-                    catalog_car.innerHTML += `<div class="kardcar">
+                    catalog_car.innerHTML += `
+            <div class="kardcar">
                 <h2 id="card_car${i}">${element.modelo}</h2>
                 <div>
                     <button class="butPad" onclick="onc_view${i}()">
@@ -579,7 +568,12 @@
             });
     }
 
-
+    //função de vizualizar carros individualmente
+    function onc_view() {
+        document.getElementById("screen_1").style.display = "none";
+        document.getElementById("screen_2").style.display = "flex";
+        document.getElementById("screen_3").style.display = "none";
+    }
 
     //dinanometro abaixo:
     const ctx = document.getElementById('myChart');

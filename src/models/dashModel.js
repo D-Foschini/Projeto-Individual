@@ -26,7 +26,23 @@ function cadastrarveiculo(fk_cadastro, model, about) {
   return database.executar(instrucaoSql);
 }
 
+// function cadastrarespec(fk_cadastro, model, about) {
+//   console.log(
+//     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarveiculo():",
+//     fk_cadastro,
+//     model,
+//     about
+//   );
+//   var instrucaoSql = `
+//         INSERT INTO informa (fkVeiculo, mass, bar, country, dtprod, tipo, trans, gear, drive, cylinder, motor, accelerate) VALUES
+// (9,1,1,'',2000,'','',6,'','','',1);
+// `;
+//   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+//   return database.executar(instrucaoSql);
+// }
+
 module.exports = {
   selectveiculo,
   cadastrarveiculo,
+
 };
