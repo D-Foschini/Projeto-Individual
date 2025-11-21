@@ -62,7 +62,7 @@
                 </button>
             </div>
         </div>
-        <div class="catalog">
+        <div class="catalog" id="catalog_car">
             <div class="kardcar">
                 <h2 id="card_car">Nissan Skyline R34</h2>
                 <div>
@@ -199,17 +199,15 @@
                     <div class="gen_graph" id="dynamic">
                         <div>
                             <p>RPM</p>
-                            <input type="number" id="inp_rpm">
-                        </div>
-                        <div>
+                            <input type="number" id="inp_hp_rpm">
                             <p>HorsePower</p>
                             <input type="number" id="inp_hp_top">
-
                         </div>
                         <div>
+                            <p>RPM</p>
+                            <input type="number" id="inp_trq_rpm">
                             <p>Torque</p>
                             <input type="number" id="inp_trq_top">
-
                         </div>
                     </div>
                 </div>
@@ -284,6 +282,8 @@
 </body>
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    window.onload = change_veiculo();
+
 
     // document.getElementById("screen_1").style.display = "none";
     document.getElementById("screen_2").style.display = "none";
@@ -321,7 +321,8 @@
     }
 
     //informações de usuario
-    var id_user = sessionStorage.ID_USUARIO;
+    var fk_cadastro = sessionStorage.ID_USUARIO;
+
 
     //dados dos graficos a mostrar 
     var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
@@ -378,26 +379,135 @@
         let acceleration = document.getElementById("inp_speed").value;
         let valid = true;
 
+        //dados graficos
+        let hp_A = document.getElementById("inp_hp_10").value;
+        let hp_B = document.getElementById("inp_hp_15").value;
+        let hp_C = document.getElementById("inp_hp_20").value;
+        let hp_D = document.getElementById("inp_hp_25").value;
+        let hp_E = document.getElementById("inp_hp_30").value;
+        let hp_F = document.getElementById("inp_hp_35").value;
+        let hp_G = document.getElementById("inp_hp_40").value;
+        let hp_H = document.getElementById("inp_hp_45").value;
+        let hp_I = document.getElementById("inp_hp_50").value;
+        let hp_J = document.getElementById("inp_hp_55").value;
+        let hp_K = document.getElementById("inp_hp_60").value;
+        let hp_L = document.getElementById("inp_hp_65").value;
+        let hp_M = document.getElementById("inp_hp_70").value;
+        let hp_N = document.getElementById("inp_hp_75").value;
+        let hp_O = document.getElementById("inp_hp_80").value;
+
+        let trq_A = document.getElementById("inp_trq_10").value;
+        let trq_B = document.getElementById("inp_trq_15").value;
+        let trq_C = document.getElementById("inp_trq_20").value;
+        let trq_D = document.getElementById("inp_trq_25").value;
+        let trq_E = document.getElementById("inp_trq_30").value;
+        let trq_F = document.getElementById("inp_trq_35").value;
+        let trq_G = document.getElementById("inp_trq_40").value;
+        let trq_H = document.getElementById("inp_trq_45").value;
+        let trq_I = document.getElementById("inp_trq_50").value;
+        let trq_J = document.getElementById("inp_trq_55").value;
+        let trq_K = document.getElementById("inp_trq_60").value;
+        let trq_L = document.getElementById("inp_trq_65").value;
+        let trq_M = document.getElementById("inp_trq_70").value;
+        let trq_N = document.getElementById("inp_trq_75").value;
+        let trq_O = document.getElementById("inp_trq_80").value;
+
+        let top_rpm_trq = document.getElementById("inp_trq_rpm").value;
+        let top_rpm_hp = document.getElementById("inp_hp_rpm").value;
+        let top_trq = document.getElementById("inp_trq_top").value;
+        let top_hp = document.getElementById("inp_hp_top").value;
+
         // Fazendo validação dos campos (aceitavel ter algo em branco)
         if (model == "") {
-            valid = false;
             model.placeholder = "MUST HAVE A MODEL NAME"
             model.style = "border: solid 2px red;"
+            valid = false;
         }
+        function limparFormulario() {
+            document.getElementById("inp_bar").value = "";
+            document.getElementById("inp_mass").value = "";
 
+            //informações basicas do carro  
+            document.getElementById("inp_car").value = "";
+            document.getElementById("inp_about").value = "";
+
+            //informações tecnicas do carro  
+            document.getElementById("inp_country").value = "";
+            document.getElementById("inp_year").value = "";
+            document.getElementById("inp_type").value = "";
+            document.getElementById("inp_trans").value = "";
+            document.getElementById("inp_gearQtd").value = "";
+            document.getElementById("inp_drvTra").value = "";
+            document.getElementById("inp_cylinder").value = "";
+            document.getElementById("inp_model").value = "";
+            document.getElementById("inp_speed").value = "";
+
+            //dados graficos
+            document.getElementById("inp_hp_10").value = "";
+            document.getElementById("inp_hp_15").value = "";
+            document.getElementById("inp_hp_20").value = "";
+            document.getElementById("inp_hp_25").value = "";
+            document.getElementById("inp_hp_30").value = "";
+            document.getElementById("inp_hp_35").value = "";
+            document.getElementById("inp_hp_40").value = "";
+            document.getElementById("inp_hp_45").value = "";
+            document.getElementById("inp_hp_50").value = "";
+            document.getElementById("inp_hp_55").value = "";
+            document.getElementById("inp_hp_60").value = "";
+            document.getElementById("inp_hp_65").value = "";
+            document.getElementById("inp_hp_70").value = "";
+            document.getElementById("inp_hp_75").value = "";
+            document.getElementById("inp_hp_80").value = "";
+
+            document.getElementById("inp_trq_10").value = "";
+            document.getElementById("inp_trq_15").value = "";
+            document.getElementById("inp_trq_20").value = "";
+            document.getElementById("inp_trq_25").value = "";
+            document.getElementById("inp_trq_30").value = "";
+            document.getElementById("inp_trq_35").value = "";
+            document.getElementById("inp_trq_40").value = "";
+            document.getElementById("inp_trq_45").value = "";
+            document.getElementById("inp_trq_50").value = "";
+            document.getElementById("inp_trq_55").value = "";
+            document.getElementById("inp_trq_60").value = "";
+            document.getElementById("inp_trq_65").value = "";
+            document.getElementById("inp_trq_70").value = "";
+            document.getElementById("inp_trq_75").value = "";
+            document.getElementById("inp_trq_80").value = "";
+
+            document.getElementById("inp_trq_rpm").value = "";
+            document.getElementById("inp_hp_rpm").value = "";
+            document.getElementById("inp_trq_top").value = "";
+            document.getElementById("inp_hp_top").value = "";
+        }
 
         if (valid == true) {
             // Enviando o valor da nova input
-            fetch("/veiculos/carros", {
+            fetch("/veiculos/cadastrarveiculo", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+
                     // exportando infomações em JSON
-                    idServer: id_user,
+                    idServer: fk_cadastro,
                     modelServer: model,
                     descrServer: about,
+
+                    // dados kpis:
+                    contryServer: contry,
+                    yearServer: year,
+                    typeServer: type,
+                    transmissionServer: transmission,
+                    gearServer: gear,
+                    driveServer: drive,
+                    cylinderServer: cylinder,
+                    engineServer: engine,
+                    accelerationServer: acceleration,
+
+                    // dados graficos:
+
                 }),
             })
                 .then(function (resposta) {
@@ -408,9 +518,8 @@
                             document.getElementById("screen_1").style.display = "flex";
                             document.getElementById("screen_2").style.display = "none";
                             document.getElementById("screen_3").style.display = "none";
+                            limparFormulario();
                         }, 1000); // apenas para exibir o loading
-
-                        limparFormulario();
                     } else {
                         throw "Oh no! Something went wrong...";
                     }
@@ -422,14 +531,58 @@
             return false;
         }
         validacoes = false;
-
-
     }
+
+    //função de atualizar a dashboard
+    function change_veiculo() {
+        let fk_cadastro = sessionStorage.ID_USUARIO;
+
+        fetch("/veiculos/selectveiculo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fk_cadastro
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (!resposta.ok) {
+                    throw new Error("Oh noes, something went wrong with finding the veiculo!");
+                } else {
+                    console.log("veiculo(s) found!");
+                }
+                return resposta.json();
+            })
+            .then(function (resultadoVeiculo) {
+                console.log("Veiculo encontrado:", resultadoVeiculo);
+                catalog_car.innerHTML = ``;
+                for (let i = 0; i < resultadoVeiculo.length; i++) {
+                    const element = resultadoVeiculo[i];
+                    catalog_car.innerHTML += `<div class="kardcar">
+                <h2 id="card_car${i}">${element.modelo}</h2>
+                <div>
+                    <button class="butPad" onclick="onc_view${i}()">
+                        <img class="icon" src="assets/view.png">View Car
+                    </button>
+                    <button class="butPad" onclick="onc_remove${i}()">
+                        <img class="icon" src="assets/remove.png">Remove Car
+                    </button>
+                </div>
+            </div>`;
+                }
+            })
+            .catch(function (erro) {
+                console.error("Erro:", erro);
+            });
+    }
+
 
 
     //dinanometro abaixo:
     const ctx = document.getElementById('myChart');
-
     new Chart(ctx, {
         type: 'line',
         data: {

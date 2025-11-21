@@ -3,9 +3,13 @@ var router = express.Router();
 
 var dashboardController = require("../controllers/dashboardController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
-router.post("/carros", function (req, res) {
-    dashboardController.cadastrar(req, res);
+router.post("/selectveiculo", function (req, res) {
+    dashboardController.selectveiculo(req, res);
+});
+
+router.post("/cadastrarveiculo", function (req, res) {
+    dashboardController.cadastrarveiculo(req, res);
 })
+
 
 module.exports = router;

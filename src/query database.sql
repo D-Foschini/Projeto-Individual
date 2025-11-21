@@ -55,8 +55,22 @@ alter table cadastro auto_increment = 0;
 
 USE shakai;
 
+desc informa;
+
 INSERT INTO veiculo (fkCadastro, modelo, descricao ) VALUES ('${id}', '${model}', '${about}');
 select * from veiculo;
 
 delete from veiculo where id >=1;
-alter table cadastro auto_increment = 0;
+alter table veiculo auto_increment = 0;
+select * from veiculo;
+
+INSERT INTO informa (fkVeiculo, mass, bar, country, dtprod, tipo, trans, gear, drive, cylinder, motor, accelerate) VALUES
+(9,1,1,'',2000,'','',6,'','','',1);
+
+SELECT id, fkCadastro FROM veiculo WHERE fkCadastro = 0;
+
+select * from informa;
+delete from informa where id >=1;
+alter table informa auto_increment = 0;
+
+SELECT descricao FROM veiculo;

@@ -41,3 +41,12 @@ CREATE TABLE grafico(
 	horsePower INT,
     torque INT
 );
+
+
+
+use shakai;
+
+select * from cadastro;
+delete from cadastro where id >0;
+alter table cadastro AUTO_INCREMENT = 0;
+select * from veiculo;

@@ -509,3 +509,10 @@ display: block
 .loginfix{
   margin-right: 499.5px;
 }
+#dynamic{
+  display: block;
+  flex-direction: column;
+}
+#dynamic div{
+  display: flex;
+}
