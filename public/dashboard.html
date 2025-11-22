@@ -274,15 +274,16 @@
 
 </body>
 <script>
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     window.onload = change_veiculo();
-
 
     // document.getElementById("screen_1").style.display = "none";
     document.getElementById("screen_2").style.display = "none";
     document.getElementById("screen_3").style.display = "none";
     document.getElementById("dynamic").style.display = "none";
 
+    //funções genericas
     function onc_catalog() {
         document.getElementById("screen_1").style.display = "flex";
         document.getElementById("screen_2").style.display = "none";
@@ -307,45 +308,42 @@
             document.getElementById("dynamic").style.display = "flex";
         }
     }
-
-    //informações de usuario
-    var fk_cadastro = sessionStorage.ID_USUARIO;
-
-
-    //dados dos graficos a mostrar 
-    var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
-    var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
-
-    // terminate session
     function onc_exit() {
         sessionStorage.NOME_USUARIO = "";
         sessionStorage.ID_USUARIO = "";
         sessionStorage.EMAIL_USUARIO = "";
     }
 
-    //informações do motor  
-    var hpKpi_dsh = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
-    var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
-    var barKpi_dsh = document.getElementById("kpi_bar");
-    var massKpi_dsh = document.getElementById("kpi_mass");
+    //informações de usuario
+    var fk_cadastro = sessionStorage.ID_USUARIO;
 
-    //informações basicas do carro  
-    var model_dsh = document.getElementById("kpi_name");
-    var about_dsh = document.getElementById("kpi_about");
-
-    //informações tecnicas do carro  
-    var contry_dsh = document.getElementById("kpi_country");
-    var year_dsh = document.getElementById("kpi_year");
-    var type_dsh = document.getElementById("kpi_type");
-    var transmission_dsh = document.getElementById("kpi_tran");
-    var gear_dsh = document.getElementById("kpi_gear");
-    var drive_dsh = document.getElementById("kpi_drive");
-    var cylinder_dsh = document.getElementById("kpi_cylinder");
-    var engine_dsh = document.getElementById("kpi_engine");
-    var acceleration_dsh = document.getElementById("kpi_acceleration");
+    //dados dos graficos a mostrar 
+    var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
+    var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
 
 
-    // Export to database! (same as register)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // INSERT EM VEICULO (INSERT VEICULO)
     function onc_confirm() {
         //informações do motor  
         let barKpi = document.getElementById("inp_bar").value;
@@ -366,7 +364,7 @@
         let engine = document.getElementById("inp_model").value;
         let acceleration = document.getElementById("inp_speed").value;
         let valid = true;
-
+        
         //dados graficos
         let hp_A = document.getElementById("inp_hp_10").value;
         let hp_B = document.getElementById("inp_hp_15").value;
@@ -383,7 +381,7 @@
         let hp_M = document.getElementById("inp_hp_70").value;
         let hp_N = document.getElementById("inp_hp_75").value;
         let hp_O = document.getElementById("inp_hp_80").value;
-
+        
         let trq_A = document.getElementById("inp_trq_10").value;
         let trq_B = document.getElementById("inp_trq_15").value;
         let trq_C = document.getElementById("inp_trq_20").value;
@@ -399,12 +397,12 @@
         let trq_M = document.getElementById("inp_trq_70").value;
         let trq_N = document.getElementById("inp_trq_75").value;
         let trq_O = document.getElementById("inp_trq_80").value;
-
+        
         let top_rpm_trq = document.getElementById("inp_trq_rpm").value;
         let top_rpm_hp = document.getElementById("inp_hp_rpm").value;
         let top_trq = document.getElementById("inp_trq_top").value;
         let top_hp = document.getElementById("inp_hp_top").value;
-
+        
         // Fazendo validação dos campos (aceitavel ter algo em branco)
         if (model == "") {
             model.placeholder = "MUST HAVE A MODEL NAME"
@@ -418,7 +416,7 @@
             //informações basicas do carro  
             document.getElementById("inp_car").value = "";
             document.getElementById("inp_about").value = "";
-
+            
             //informações tecnicas do carro  
             document.getElementById("inp_country").value = "";
             document.getElementById("inp_year").value = "";
@@ -429,7 +427,7 @@
             document.getElementById("inp_cylinder").value = "";
             document.getElementById("inp_model").value = "";
             document.getElementById("inp_speed").value = "";
-
+            
             //dados graficos
             document.getElementById("inp_hp_10").value = "";
             document.getElementById("inp_hp_15").value = "";
@@ -446,7 +444,7 @@
             document.getElementById("inp_hp_70").value = "";
             document.getElementById("inp_hp_75").value = "";
             document.getElementById("inp_hp_80").value = "";
-
+            
             document.getElementById("inp_trq_10").value = "";
             document.getElementById("inp_trq_15").value = "";
             document.getElementById("inp_trq_20").value = "";
@@ -462,7 +460,7 @@
             document.getElementById("inp_trq_70").value = "";
             document.getElementById("inp_trq_75").value = "";
             document.getElementById("inp_trq_80").value = "";
-
+            
             document.getElementById("inp_trq_rpm").value = "";
             document.getElementById("inp_hp_rpm").value = "";
             document.getElementById("inp_trq_top").value = "";
@@ -482,7 +480,7 @@
                     idServer: fk_cadastro,
                     modelServer: model,
                     descrServer: about,
-
+                    
                     // dados kpis:
                     contryServer: contry,
                     yearServer: year,
@@ -493,7 +491,7 @@
                     cylinderServer: cylinder,
                     engineServer: engine,
                     accelerationServer: acceleration,
-
+                    
                     // dados graficos:
 
                 }),
@@ -507,6 +505,7 @@
                             document.getElementById("screen_2").style.display = "none";
                             document.getElementById("screen_3").style.display = "none";
                             limparFormulario();
+                            change_veiculo()
                         }, 1000); // apenas para exibir o loading
                     } else {
                         throw "Oh no! Something went wrong...";
@@ -515,16 +514,16 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
-
-            return false;
+                
+                return false;
+            }
+            validacoes = false;
         }
-        validacoes = false;
-    }
-
-    //função de atualizar a dashboard
+        
+    //ATUALIZA OS CARDS (SELECT VEICULO)
     function change_veiculo() {
         let fk_cadastro = sessionStorage.ID_USUARIO;
-
+        
         fetch("/veiculos/selectveiculo", {
             method: "POST",
             headers: {
@@ -534,48 +533,94 @@
                 fk_cadastro
             })
         })
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
-
-                if (!resposta.ok) {
-                    throw new Error("Oh noes, something went wrong with finding the veiculo!");
-                } else {
-                    console.log("veiculo(s) found!");
-                }
-                return resposta.json();
-            })
-            .then(function (resultadoVeiculo) {
-                console.log("Veiculo encontrado:", resultadoVeiculo);
-                catalog_car.innerHTML = ``;
-                for (let i = 0; i < resultadoVeiculo.length; i++) {
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+            
+            if (!resposta.ok) {
+                throw new Error("Oh noes, something went wrong with finding the veiculo!");
+            } else {
+                console.log("veiculo(s) found!");
+            }
+            return resposta.json();
+        })
+        .then(function (resultadoVeiculo) {
+            console.log("Veiculo encontrado:", resultadoVeiculo);
+            catalog_car.innerHTML = ``;
+            for (let i = 0; i < resultadoVeiculo.length; i++) {
                     const element = resultadoVeiculo[i];
                     catalog_car.innerHTML += `
-            <div class="kardcar">
-                <h2 id="card_car${i}">${element.modelo}</h2>
-                <div>
-                    <button class="butPad" onclick="onc_view${i}()">
-                        <img class="icon" src="assets/view.png">View Car
-                    </button>
-                    <button class="butPad" onclick="onc_remove${i}()">
-                        <img class="icon" src="assets/remove.png">Remove Car
-                    </button>
-                </div>
-            </div>`;
-                }
-            })
-            .catch(function (erro) {
+                    <div class="kardcar">
+                        <h2 id="card_car${element.id}">${element.modelo}</h2>
+                        <div>
+                            <button class="butPad" onclick="onc_view(${element.id})">
+                                <img class="icon" src="assets/view.png">View Car
+                                </button>
+                                <button class="butPad" onclick="onc_remove(${element.id})">
+                                    <img class="icon" src="assets/remove.png">Remove Car
+                                    </button>
+                                    </div>
+                                    </div>`;
+                                }
+                            })
+                            .catch(function (erro) {
                 console.error("Erro:", erro);
             });
-    }
-
-    //função de vizualizar carros individualmente
-    function onc_view() {
+        }
+        
+    //VIZUALIZAR O CARD (SELECT INFORMA/GRAFICO)
+    function onc_view(id) {
         document.getElementById("screen_1").style.display = "none";
         document.getElementById("screen_2").style.display = "flex";
         document.getElementById("screen_3").style.display = "none";
+        sessionStorage.VIEW_ID = id;
     }
 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //dinanometro abaixo:
+    //informações do motor  
+    var hpKpi_dsh = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
+    var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
+    var barKpi_dsh = document.getElementById("kpi_bar");
+    var massKpi_dsh = document.getElementById("kpi_mass");
+    
+    //informações basicas do carro  
+    var model_dsh = document.getElementById("kpi_name");
+    var about_dsh = document.getElementById("kpi_about");
+    
+    //informações tecnicas do carro  
+    var contry_dsh = document.getElementById("kpi_country");
+    var year_dsh = document.getElementById("kpi_year");
+    var type_dsh = document.getElementById("kpi_type");
+    var transmission_dsh = document.getElementById("kpi_tran");
+    var gear_dsh = document.getElementById("kpi_gear");
+    var drive_dsh = document.getElementById("kpi_drive");
+    var cylinder_dsh = document.getElementById("kpi_cylinder");
+    var engine_dsh = document.getElementById("kpi_engine");
+    var acceleration_dsh = document.getElementById("kpi_acceleration");
+    
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
         type: 'line',
@@ -589,7 +634,7 @@
                 borderWidth: 3,
                 lineTension: 0.3,
                 yAxisID: 'y',
-
+                
             }, {
                 label: 'Torque [FT-LB]',
                 data: trq,
@@ -672,7 +717,6 @@
             }
         }
     });
-
 </script>
 
 </html>
