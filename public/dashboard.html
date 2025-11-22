@@ -275,6 +275,14 @@
 </body>
 <script>
 
+    var array_id_car = [];
+    var fkVeiculo = 0;
+
+
+    function calc() {
+        fkVeiculo = array_id_car[array_id_car.length - 1];
+    }
+
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     window.onload = change_veiculo();
 
@@ -322,7 +330,6 @@
     var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
 
 
-    
 
 
 
@@ -339,21 +346,12 @@
 
 
 
+    // INSERT DAS SPECS (INSERT INFORMA/GRAFICO)
+    function specs_insert() {
+        let valid = true;
+        let bar = document.getElementById("inp_bar").value;
+        let mass = document.getElementById("inp_mass").value;
 
-
-
-    
-    // INSERT EM VEICULO (INSERT VEICULO)
-    function onc_confirm() {
-        //informações do motor  
-        let barKpi = document.getElementById("inp_bar").value;
-        let massKpi = document.getElementById("inp_mass").value;
-
-        //informações basicas do carro  
-        let model = document.getElementById("inp_car").value;
-        let about = document.getElementById("inp_about").value;
-
-        //informações tecnicas do carro  
         let contry = document.getElementById("inp_country").value;
         let year = document.getElementById("inp_year").value;
         let type = document.getElementById("inp_type").value;
@@ -363,9 +361,7 @@
         let cylinder = document.getElementById("inp_cylinder").value;
         let engine = document.getElementById("inp_model").value;
         let acceleration = document.getElementById("inp_speed").value;
-        let valid = true;
-        
-        //dados graficos
+
         let hp_A = document.getElementById("inp_hp_10").value;
         let hp_B = document.getElementById("inp_hp_15").value;
         let hp_C = document.getElementById("inp_hp_20").value;
@@ -381,7 +377,7 @@
         let hp_M = document.getElementById("inp_hp_70").value;
         let hp_N = document.getElementById("inp_hp_75").value;
         let hp_O = document.getElementById("inp_hp_80").value;
-        
+
         let trq_A = document.getElementById("inp_trq_10").value;
         let trq_B = document.getElementById("inp_trq_15").value;
         let trq_C = document.getElementById("inp_trq_20").value;
@@ -397,12 +393,95 @@
         let trq_M = document.getElementById("inp_trq_70").value;
         let trq_N = document.getElementById("inp_trq_75").value;
         let trq_O = document.getElementById("inp_trq_80").value;
-        
+
         let top_rpm_trq = document.getElementById("inp_trq_rpm").value;
         let top_rpm_hp = document.getElementById("inp_hp_rpm").value;
         let top_trq = document.getElementById("inp_trq_top").value;
         let top_hp = document.getElementById("inp_hp_top").value;
-        
+        calc()
+
+        // Enviando o valor da nova input
+
+        fetch("/veiculos/cadastrarinfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+
+                fkServer: fkVeiculo,
+                barServer: bar,
+                massServer: mass,
+
+                countryServer: contry,
+                yearServer: year,
+                typeServer: type,
+                transmissionServer: transmission,
+                gearServer: gear,
+                driveServer: drive,
+                cylinderServer: cylinder,
+                engineServer: engine,
+                accelerationServer: acceleration,
+
+                hp_A_Server: hp_A,
+                hp_B_Server: hp_B,
+                hp_C_Server: hp_C,
+                hp_D_Server: hp_D,
+                hp_E_Server: hp_E,
+                hp_F_Server: hp_F,
+                hp_G_Server: hp_G,
+                hp_H_Server: hp_H,
+                hp_I_Server: hp_I,
+                hp_J_Server: hp_J,
+                hp_K_Server: hp_K,
+                hp_L_Server: hp_L,
+                hp_M_Server: hp_M,
+                hp_N_Server: hp_N,
+                hp_O_Server: hp_O,
+
+                trq_A_Server: trq_A,
+                trq_B_Server: trq_B,
+                trq_C_Server: trq_C,
+                trq_D_Server: trq_D,
+                trq_E_Server: trq_E,
+                trq_F_Server: trq_F,
+                trq_G_Server: trq_G,
+                trq_H_Server: trq_H,
+                trq_I_Server: trq_I,
+                trq_J_Server: trq_J,
+                trq_K_Server: trq_K,
+                trq_L_Server: trq_L,
+                trq_M_Server: trq_M,
+                trq_N_Server: trq_N,
+                trq_O_Server: trq_O,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    setTimeout(function () {
+                    }, 1000); // apenas para exibir o loading
+                } else {
+                    throw "Oh no! Something went wrong...";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+
+    // INSERT EM VEICULO (INSERT VEICULO)
+    function onc_confirm() {
+
+        //informações basicas do carro  
+        let model = document.getElementById("inp_car").value;
+        let about = document.getElementById("inp_about").value;
+        let valid = true;
+
         // Fazendo validação dos campos (aceitavel ter algo em branco)
         if (model == "") {
             model.placeholder = "MUST HAVE A MODEL NAME"
@@ -416,7 +495,7 @@
             //informações basicas do carro  
             document.getElementById("inp_car").value = "";
             document.getElementById("inp_about").value = "";
-            
+
             //informações tecnicas do carro  
             document.getElementById("inp_country").value = "";
             document.getElementById("inp_year").value = "";
@@ -427,7 +506,7 @@
             document.getElementById("inp_cylinder").value = "";
             document.getElementById("inp_model").value = "";
             document.getElementById("inp_speed").value = "";
-            
+
             //dados graficos
             document.getElementById("inp_hp_10").value = "";
             document.getElementById("inp_hp_15").value = "";
@@ -444,7 +523,7 @@
             document.getElementById("inp_hp_70").value = "";
             document.getElementById("inp_hp_75").value = "";
             document.getElementById("inp_hp_80").value = "";
-            
+
             document.getElementById("inp_trq_10").value = "";
             document.getElementById("inp_trq_15").value = "";
             document.getElementById("inp_trq_20").value = "";
@@ -460,7 +539,7 @@
             document.getElementById("inp_trq_70").value = "";
             document.getElementById("inp_trq_75").value = "";
             document.getElementById("inp_trq_80").value = "";
-            
+
             document.getElementById("inp_trq_rpm").value = "";
             document.getElementById("inp_hp_rpm").value = "";
             document.getElementById("inp_trq_top").value = "";
@@ -480,25 +559,12 @@
                     idServer: fk_cadastro,
                     modelServer: model,
                     descrServer: about,
-                    
-                    // dados kpis:
-                    contryServer: contry,
-                    yearServer: year,
-                    typeServer: type,
-                    transmissionServer: transmission,
-                    gearServer: gear,
-                    driveServer: drive,
-                    cylinderServer: cylinder,
-                    engineServer: engine,
-                    accelerationServer: acceleration,
-                    
-                    // dados graficos:
 
                 }),
             })
                 .then(function (resposta) {
                     console.log("resposta: ", resposta);
-
+                    specs_insert()
                     if (resposta.ok) {
                         setTimeout(function () {
                             document.getElementById("screen_1").style.display = "flex";
@@ -514,16 +580,16 @@
                 .catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
-                
-                return false;
-            }
-            validacoes = false;
+
+            return false;
         }
-        
-    //ATUALIZA OS CARDS (SELECT VEICULO)
+        validacoes = false;
+    }
+
+    //ATUALIZA OS CARDS (SELECT VEICULOS)
     function change_veiculo() {
         let fk_cadastro = sessionStorage.ID_USUARIO;
-        
+
         fetch("/veiculos/selectveiculo", {
             method: "POST",
             headers: {
@@ -533,49 +599,50 @@
                 fk_cadastro
             })
         })
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-            
-            if (!resposta.ok) {
-                throw new Error("Oh noes, something went wrong with finding the veiculo!");
-            } else {
-                console.log("veiculo(s) found!");
-            }
-            return resposta.json();
-        })
-        .then(function (resultadoVeiculo) {
-            console.log("Veiculo encontrado:", resultadoVeiculo);
-            catalog_car.innerHTML = ``;
-            for (let i = 0; i < resultadoVeiculo.length; i++) {
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (!resposta.ok) {
+                    throw new Error("Oh noes, something went wrong with finding the veiculo!");
+                } else {
+                    console.log("veiculo(s) found!");
+                }
+                return resposta.json();
+            })
+            .then(function (resultadoVeiculo) {
+                console.log("Veiculo encontrado:", resultadoVeiculo);
+                catalog_car.innerHTML = ``;
+                for (let i = 0; i < resultadoVeiculo.length; i++) {
                     const element = resultadoVeiculo[i];
+                    array_id_car.push(element.id);
                     catalog_car.innerHTML += `
                     <div class="kardcar">
-                        <h2 id="card_car${element.id}">${element.modelo}</h2>
+                        <h2 id="card_car${i}">${element.modelo}</h2>
                         <div>
-                            <button class="butPad" onclick="onc_view(${element.id})">
+                            <button class="butPad" onclick="onc_view(${i})">
                                 <img class="icon" src="assets/view.png">View Car
                                 </button>
-                                <button class="butPad" onclick="onc_remove(${element.id})">
+                                <button class="butPad" onclick="onc_remove(${i})">
                                     <img class="icon" src="assets/remove.png">Remove Car
                                     </button>
                                     </div>
                                     </div>`;
-                                }
-                            })
-                            .catch(function (erro) {
+                }
+            })
+            .catch(function (erro) {
                 console.error("Erro:", erro);
             });
-        }
-        
+    }
+
     //VIZUALIZAR O CARD (SELECT INFORMA/GRAFICO)
-    function onc_view(id) {
+    function onc_view(i) {
         document.getElementById("screen_1").style.display = "none";
         document.getElementById("screen_2").style.display = "flex";
         document.getElementById("screen_3").style.display = "none";
-        sessionStorage.VIEW_ID = id;
+        sessionStorage.VIEW_NUM_CAR = i;
     }
 
-    
+
 
 
 
@@ -605,11 +672,11 @@
     var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
     var barKpi_dsh = document.getElementById("kpi_bar");
     var massKpi_dsh = document.getElementById("kpi_mass");
-    
+
     //informações basicas do carro  
     var model_dsh = document.getElementById("kpi_name");
     var about_dsh = document.getElementById("kpi_about");
-    
+
     //informações tecnicas do carro  
     var contry_dsh = document.getElementById("kpi_country");
     var year_dsh = document.getElementById("kpi_year");
@@ -620,7 +687,7 @@
     var cylinder_dsh = document.getElementById("kpi_cylinder");
     var engine_dsh = document.getElementById("kpi_engine");
     var acceleration_dsh = document.getElementById("kpi_acceleration");
-    
+
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
         type: 'line',
@@ -634,7 +701,7 @@
                 borderWidth: 3,
                 lineTension: 0.3,
                 yAxisID: 'y',
-                
+
             }, {
                 label: 'Torque [FT-LB]',
                 data: trq,

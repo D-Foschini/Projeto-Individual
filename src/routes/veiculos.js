@@ -11,5 +11,9 @@ router.post("/cadastrarveiculo", function (req, res) {
     dashboardController.cadastrarveiculo(req, res);
 })
 
+router.post("/cadastrarinfo", function (req, res) {
+    dashboardController.cadastrarinfo(req, res);
+})
+
 
 module.exports = router;
