@@ -87,7 +87,7 @@
                     <div class="kpi" id="kpi_hp">
                         HP: 276
                     </div>
-                    <div class="kpi" id="kpi_tqr">
+                    <div class="kpi" id="kpi_trq">
                         FT-LB: 285
                     </div>
                     <div class="kpi" id="kpi_bar">
@@ -274,15 +274,13 @@
 
 </body>
 <script>
-
     var array_id_car = [];
-    var fkVeiculo = 0;
+    var array_model_car = [];
+    var array_num_car = [];
+    var array_about_car = [];
+    var idVeiculo = 0;
 
-
-    function calc() {
-        fkVeiculo = array_id_car[array_id_car.length - 1];
-    }
-
+    var fk_cadastro = sessionStorage.ID_USUARIO;
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     window.onload = change_veiculo();
 
@@ -322,32 +320,8 @@
         sessionStorage.EMAIL_USUARIO = "";
     }
 
-    //informações de usuario
-    var fk_cadastro = sessionStorage.ID_USUARIO;
-
-    //dados dos graficos a mostrar 
-    var hp = [45, 70, 95, 120, 145, 175, 205, 235, 255, 265, 272, 276, 270, 255, 235];
-    var trq = [160, 185, 210, 235, 255, 270, 280, 285, 280, 270, 255, 240, 220, 200, 180];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // INSERT DAS SPECS (INSERT INFORMA/GRAFICO)
-    function specs_insert() {
+    function specs_insert(fkVeiculo) {
         let valid = true;
         let bar = document.getElementById("inp_bar").value;
         let mass = document.getElementById("inp_mass").value;
@@ -398,7 +372,6 @@
         let top_rpm_hp = document.getElementById("inp_hp_rpm").value;
         let top_trq = document.getElementById("inp_trq_top").value;
         let top_hp = document.getElementById("inp_hp_top").value;
-        calc()
 
         // Enviando o valor da nova input
 
@@ -472,7 +445,6 @@
 
         return false;
     }
-
 
     // INSERT EM VEICULO (INSERT VEICULO)
     function onc_confirm() {
@@ -563,22 +535,23 @@
                 }),
             })
                 .then(function (resposta) {
-                    console.log("resposta: ", resposta);
-                    specs_insert()
-                    if (resposta.ok) {
-                        setTimeout(function () {
-                            document.getElementById("screen_1").style.display = "flex";
-                            document.getElementById("screen_2").style.display = "none";
-                            document.getElementById("screen_3").style.display = "none";
-                            limparFormulario();
-                            change_veiculo()
-                        }, 1000); // apenas para exibir o loading
-                    } else {
-                        throw "Oh no! Something went wrong...";
-                    }
+                    return resposta.json(); // convert to JSON
                 })
-                .catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
+                .then(function (data) {
+                    console.log("Novo veiculo ID:", data.id);
+
+                    specs_insert(data.id);
+
+                    setTimeout(function () {
+                        document.getElementById("screen_1").style.display = "flex";
+                        document.getElementById("screen_2").style.display = "none";
+                        document.getElementById("screen_3").style.display = "none";
+                        limparFormulario();
+                        change_veiculo();
+                    }, 1000);
+                })
+                .catch(function (erro) {
+                    console.log("#ERRO:", erro);
                 });
 
             return false;
@@ -615,14 +588,17 @@
                 for (let i = 0; i < resultadoVeiculo.length; i++) {
                     const element = resultadoVeiculo[i];
                     array_id_car.push(element.id);
+                    array_model_car.push(element.modelo);
+                    array_num_car.push(i);
+                    array_about_car.push(element.descricao);
                     catalog_car.innerHTML += `
                     <div class="kardcar">
-                        <h2 id="card_car${i}">${element.modelo}</h2>
+                        <h2 id="card_car${element.id}">${element.modelo}</h2>
                         <div>
-                            <button class="butPad" onclick="onc_view(${i})">
+                            <button class="butPad" onclick="onc_view(${element.id})">
                                 <img class="icon" src="assets/view.png">View Car
                                 </button>
-                                <button class="butPad" onclick="onc_remove(${i})">
+                                <button class="butPad" onclick="onc_remove(${element.id})">
                                     <img class="icon" src="assets/remove.png">Remove Car
                                     </button>
                                     </div>
@@ -635,38 +611,82 @@
     }
 
     //VIZUALIZAR O CARD (SELECT INFORMA/GRAFICO)
-    function onc_view(i) {
+    function onc_view(id) {
         document.getElementById("screen_1").style.display = "none";
         document.getElementById("screen_2").style.display = "flex";
         document.getElementById("screen_3").style.display = "none";
-        sessionStorage.VIEW_NUM_CAR = i;
+        idVeiculo = id;
+        let i = array_id_car.indexOf(idVeiculo);
+        model_dsh.innerHTML = array_model_car[i];
+        about_dsh.innerHTML = array_about_car[i];
+        trq = [];
+        hp = [];
+
+        fetch("/veiculos/selectinfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idVeiculo
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (!resposta.ok) {
+                    throw new Error("Oh noes, something went wrong with finding the veiculo!");
+                } else {
+                    console.log("veiculo(s) found!");
+                }
+                return resposta.json();
+            })
+            .then(function (resultadoVeiculo) {
+                console.log("Veiculo encontrado:", resultadoVeiculo);
+
+                barKpi_dsh.innerHTML = "BAR: " + resultadoVeiculo[0].bar;
+                massKpi_dsh.innerHTML = "MASS: " + resultadoVeiculo[0].mass;
+                contry_dsh.innerHTML = "• Country: " + resultadoVeiculo[0].country;
+                year_dsh.innerHTML = "• Year: " + resultadoVeiculo[0].dtprod;
+                type_dsh.innerHTML = "• Drivetrain: " + resultadoVeiculo[0].tipo;
+                transmission_dsh.innerHTML = "• Transmission: " + resultadoVeiculo[0].trans;
+                gear_dsh.innerHTML = "• Number of gears: " + resultadoVeiculo[0].gear;
+                drive_dsh.innerHTML = "• Drivetrain: " + resultadoVeiculo[0].drive;
+                cylinder_dsh.innerHTML = "• Cylinders alignment: " + resultadoVeiculo[0].cylinder;
+                engine_dsh.innerHTML = "• Engine: " + resultadoVeiculo[0].motor;
+                acceleration_dsh.innerHTML = "• 0-100 km/h: " + resultadoVeiculo[0].accelerate;
+
+                trq = [
+                    resultadoVeiculo[0].trq_A, resultadoVeiculo[0].trq_B, resultadoVeiculo[0].trq_C, resultadoVeiculo[0].trq_D, resultadoVeiculo[0].trq_E,
+                    resultadoVeiculo[0].trq_F, resultadoVeiculo[0].trq_G, resultadoVeiculo[0].trq_H, resultadoVeiculo[0].trq_I, resultadoVeiculo[0].trq_J,
+                    resultadoVeiculo[0].trq_K, resultadoVeiculo[0].trq_L, resultadoVeiculo[0].trq_M, resultadoVeiculo[0].trq_N, resultadoVeiculo[0].trq_O
+                ];
+                hp = [
+                    resultadoVeiculo[0].hp_A, resultadoVeiculo[0].hp_B, resultadoVeiculo[0].hp_C, resultadoVeiculo[0].hp_D, resultadoVeiculo[0].hp_E,
+                    resultadoVeiculo[0].hp_F, resultadoVeiculo[0].hp_G, resultadoVeiculo[0].hp_H, resultadoVeiculo[0].hp_I, resultadoVeiculo[0].hp_J,
+                    resultadoVeiculo[0].hp_K, resultadoVeiculo[0].hp_L, resultadoVeiculo[0].hp_M, resultadoVeiculo[0].hp_N, resultadoVeiculo[0].hp_O
+                ];
+                let mx_hp = hp[0];
+                let mx_trq = trq[0]
+
+                //selecting the highest value of the array
+                for (let i = 1; i < hp.length; i++) {
+                    if (hp[i] > mx_hp) {
+                        mx_hp = hp[i];
+                    }
+                    if (trq[i] > mx_trq) {
+                        mx_trq = trq[i];
+                    }
+                }
+                load()
+                hpKpi_dsh.innerHTML = "HP:" + mx_hp; // TOP HP (pegar do array)
+                trqKpi_dsh.innerHTML = "FT-LB:" + mx_trq; // TOP TRQ (pegar do array)
+            })
+            .catch(function (erro) {
+                console.error("Erro:", erro);
+            });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //dinanometro abaixo:
     //informações do motor  
     var hpKpi_dsh = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
     var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
@@ -688,102 +708,107 @@
     var engine_dsh = document.getElementById("kpi_engine");
     var acceleration_dsh = document.getElementById("kpi_acceleration");
 
-    const ctx = document.getElementById('myChart');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
-            datasets: [{
-                label: 'HorsePower [HP]',
-                data: hp,
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderWidth: 3,
-                lineTension: 0.3,
-                yAxisID: 'y',
+    var hp = [];
+    var trq = [];
 
-            }, {
-                label: 'Torque [FT-LB]',
-                data: trq,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderWidth: 3,
-                lineTension: 0.3,
-                yAxisID: 'y1'
-            }]
-        },
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
+    function load() {
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
+                datasets: [{
+                    label: 'HorsePower [HP]',
+                    data: hp,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderWidth: 3,
+                    lineTension: 0.3,
+                    yAxisID: 'y',
+
+                }, {
+                    label: 'Torque [FT-LB]',
+                    data: trq,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderWidth: 3,
+                    lineTension: 0.3,
+                    yAxisID: 'y1'
+                }]
             },
-            stacked: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'HorsePower [HP]',
-                        color: 'rgba(255, 99, 132, 1)'
-                    },
-                    min: 0,
-                    max: 350,
-                    ticks: {
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        }
                     }
                 },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
+                scales: {
+                    y: {
+                        type: 'linear',
                         display: true,
-                        text: 'Torque [FT-LB]',
-                        color: 'rgba(54, 162, 235, 1)'
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'HorsePower [HP]',
+                            color: 'rgba(255, 99, 132, 1)'
+                        },
+                        min: 0,
+                        max: 350,
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        }
                     },
-                    min: 0,
-                    max: 350,
-                    ticks: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Torque [FT-LB]',
+                            color: 'rgba(54, 162, 235, 1)'
+                        },
+                        min: 0,
+                        max: 350,
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        }
                     },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Engine Speed [RPM]',
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        }
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Engine Speed [RPM]',
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    },
-                    ticks: {
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+                elements: {
+                    point: {
+                        radius: 0
                     }
-                }
-            },
-            elements: {
-                point: {
-                    radius: 0
                 }
             }
-        }
-    });
+        });
+    }
 </script>
 
 </html>
