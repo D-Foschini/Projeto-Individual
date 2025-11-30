@@ -8,21 +8,34 @@ function selectveiculo(fk_cadastro) {
   var instrucaoSql = `
         SELECT id, fkCadastro, modelo, descricao FROM veiculo WHERE fkCadastro = ${fk_cadastro};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-  }
-  
-  function selectinfo(idVeiculo) {
-    console.log(
-      "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectveiculo(): "
-    );
-    var instrucaoSql = `
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function selectinfo(idVeiculo) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectveiculo(): "
+  );
+  var instrucaoSql = `
     SELECT mass, bar, country, dtprod, tipo, trans, gear, drive, cylinder, motor, accelerate, hp_A, hp_B, hp_C, hp_D, hp_E, hp_F, hp_G, hp_H, hp_I, hp_J, hp_K, hp_L, hp_M, hp_N, hp_O,
     trq_A, trq_B, trq_C, trq_D, trq_E, trq_F, trq_G, trq_H, trq_I, trq_J, trq_K, trq_L, trq_M, trq_N, trq_O
      FROM informa i JOIN grafico g ON g.fkVeiculo = i.fkVeiculo
     WHERE i.fkVeiculo = ${idVeiculo};
     `;
-  console.log("Executando a instrução SQL: \n" + instrucaoSql,);
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function deleteveiculo(idVeiculo) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectveiculo(): "
+  );
+  var instrucaoSql = `
+    DELETE FROM grafico WHERE fkVeiculo = ${idVeiculo};
+    DELETE FROM informa WHERE fkVeiculo = ${idVeiculo};
+    DELETE FROM veiculo WHERE id = ${idVeiculo};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
@@ -113,4 +126,5 @@ module.exports = {
   cadastrarveiculo,
   cadastrarinfo,
   selectinfo,
+  deleteveiculo,
 };

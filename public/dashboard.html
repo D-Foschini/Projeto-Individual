@@ -60,6 +60,7 @@
                 <button class="butPad" onclick="onc_add()">
                     <img class="icon" src="assets/new.png">Add New Car
                 </button>
+                <h2 id="qtdcaro">0 Carros</h2>
             </div>
         </div>
         <div class="catalog" id="catalog_car">
@@ -314,6 +315,39 @@
             document.getElementById("dynamic").style.display = "flex";
         }
     }
+
+    function onc_remove(id) {
+        idVeiculo = id;
+
+        fetch("/veiculos/deleteveiculo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idVeiculo
+            })
+        })
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (!resposta.ok) {
+                    throw new Error("Oh noes, something went wrong with finding the veiculo!");
+                } else {
+                    console.log("veiculo(s) found!");
+                }
+                return resposta.json();
+            })
+            .then(function (resultadoVeiculo) {
+                console.log("Veiculo encontrado:", resultadoVeiculo);
+                change_veiculo()
+            })
+            .catch(function (erro) {
+                console.error("Erro:", erro);
+            });
+    }
+
+
     function onc_exit() {
         sessionStorage.NOME_USUARIO = "";
         sessionStorage.ID_USUARIO = "";
@@ -585,12 +619,14 @@
             .then(function (resultadoVeiculo) {
                 console.log("Veiculo encontrado:", resultadoVeiculo);
                 catalog_car.innerHTML = ``;
+                quantia = 0;
                 for (let i = 0; i < resultadoVeiculo.length; i++) {
                     const element = resultadoVeiculo[i];
                     array_id_car.push(element.id);
                     array_model_car.push(element.modelo);
                     array_num_car.push(i);
                     array_about_car.push(element.descricao);
+                    quantia++
                     catalog_car.innerHTML += `
                     <div class="kardcar">
                         <h2 id="card_car${element.id}">${element.modelo}</h2>
@@ -604,6 +640,7 @@
                                     </div>
                                     </div>`;
                 }
+                qtdcaro.innerHTML = `${quantia} Carros`;
             })
             .catch(function (erro) {
                 console.error("Erro:", erro);
@@ -710,6 +747,8 @@
 
     var hp = [];
     var trq = [];
+
+    var quantia = 0;
 
     function load() {
         const ctx = document.getElementById('myChart');

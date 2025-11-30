@@ -46,7 +46,36 @@ function selectinfo(req, res) {
           res.json(resultadoVeiculo); //select inteiro
         } else if (resultadoVeiculo.length == 0) {
           res.status(403).send("Usuario inválido(s)");
-        } else {  
+        } else {
+          res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log("\nFailed to login! Error: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
+function deleteveiculo(req, res) {
+  var idVeiculo = req.body.idVeiculo;
+
+  if (idVeiculo == undefined) {
+    res.status(400).send("Your idVeiculo is undefined!");
+  } else {
+    dashModel
+      .deleteveiculo(idVeiculo)
+      .then(function (resultadoVeiculo) {
+        console.log(`\nResultados encontrados: ${resultadoVeiculo.length}`);
+        console.log(`Resultados: ${JSON.stringify(resultadoVeiculo)}`); // transforma JSON em String
+
+        if (resultadoVeiculo.length >= 1) {
+          console.log(resultadoVeiculo);
+          res.json(resultadoVeiculo); //select inteiro
+        } else if (resultadoVeiculo.length == 0) {
+          res.status(403).send("Usuario inválido(s)");
+        } else {
           res.status(403).send("Mais de um usuário com o mesmo login e senha!");
         }
       })
@@ -76,7 +105,7 @@ function cadastrarveiculo(req, res) {
     dashModel
       .cadastrarveiculo(fk_cadastro, model, about)
       .then(function (resultado) {
-    res.json({ id: resultado.insertId });
+        res.json({ id: resultado.insertId });
       })
       .catch(function (erro) {
         console.log(erro);
@@ -200,4 +229,5 @@ module.exports = {
   cadastrarveiculo,
   cadastrarinfo,
   selectinfo,
+  deleteveiculo,
 };
