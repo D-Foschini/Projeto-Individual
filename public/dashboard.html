@@ -277,7 +277,6 @@
 <script>
     var array_id_car = [];
     var array_model_car = [];
-    var array_num_car = [];
     var array_about_car = [];
     var idVeiculo = 0;
 
@@ -716,15 +715,16 @@
                 .then(function (data) {
                     console.log("Novo veiculo ID:", data.id);
 
-                    specs_insert(data.id);
-
+                    setTimeout(function () {
+                        specs_insert(data.id);
+                    }, 2000);
                     setTimeout(function () {
                         document.getElementById("screen_1").style.display = "flex";
                         document.getElementById("screen_2").style.display = "none";
                         document.getElementById("screen_3").style.display = "none";
                         limparFormulario();
                         change_veiculo();
-                    }, 1000);
+                    }, 4000);
                 })
                 .catch(function (erro) {
                     console.log("#ERRO:", erro);
@@ -766,7 +766,6 @@
                     const element = resultadoVeiculo[i];
                     array_id_car.push(element.id);
                     array_model_car.push(element.modelo);
-                    array_num_car.push(i);
                     array_about_car.push(element.descricao);
                     quantia++
                     catalog_car.innerHTML += `
@@ -845,8 +844,11 @@
                     resultadoVeiculo[0].hp_F, resultadoVeiculo[0].hp_G, resultadoVeiculo[0].hp_H, resultadoVeiculo[0].hp_I, resultadoVeiculo[0].hp_J,
                     resultadoVeiculo[0].hp_K, resultadoVeiculo[0].hp_L, resultadoVeiculo[0].hp_M, resultadoVeiculo[0].hp_N, resultadoVeiculo[0].hp_O
                 ];
-                let mx_hp = hp[0];
-                let mx_trq = trq[0]
+                mx_hp = hp[0];
+                mx_trq = trq[0];
+                chart.data.datasets[0].data = hp;
+                chart.data.datasets[1].data = trq;
+                chart.update();
 
                 //selecting the highest value of the array
                 for (let i = 1; i < hp.length; i++) {
@@ -857,9 +859,9 @@
                         mx_trq = trq[i];
                     }
                 }
-                load()
                 hpKpi_dsh.innerHTML = "HP:" + mx_hp; // TOP HP (pegar do array)
                 trqKpi_dsh.innerHTML = "FT-LB:" + mx_trq; // TOP TRQ (pegar do array)
+
             })
             .catch(function (erro) {
                 console.error("Erro:", erro);
@@ -867,6 +869,9 @@
     }
 
     //informações do motor  
+    var mx_hp;
+    var mx_trq;
+
     var hpKpi_dsh = document.getElementById("kpi_hp"); // TOP HP (pegar do array)
     var trqKpi_dsh = document.getElementById("kpi_trq"); // TOP TRQ (pegar do array)
     var barKpi_dsh = document.getElementById("kpi_bar");
@@ -887,109 +892,108 @@
     var engine_dsh = document.getElementById("kpi_engine");
     var acceleration_dsh = document.getElementById("kpi_acceleration");
 
+    var quantia = 0;
     var hp = [];
     var trq = [];
+    let chart;
+    const ctx = document.getElementById('myChart');
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
+            datasets: [{
+                label: 'HorsePower [HP]',
+                data: hp,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderWidth: 3,
+                lineTension: 0.3,
+                yAxisID: 'y',
 
-    var quantia = 0;
-
-    function load() {
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['1000', '1500', '2000', '2500', '3000', '3500', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000'],
-                datasets: [{
-                    label: 'HorsePower [HP]',
-                    data: hp,
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderWidth: 3,
-                    lineTension: 0.3,
-                    yAxisID: 'y',
-
-                }, {
-                    label: 'Torque [FT-LB]',
-                    data: trq,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderWidth: 3,
-                    lineTension: 0.3,
-                    yAxisID: 'y1'
-                }]
+            }, {
+                label: 'Torque [FT-LB]',
+                data: trq,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderWidth: 3,
+                lineTension: 0.3,
+                yAxisID: 'y1'
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
             },
-            options: {
-                responsive: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                stacked: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        title: {
-                            display: true,
-                            text: 'HorsePower [HP]',
-                            color: 'rgba(255, 99, 132, 1)'
-                        },
-                        min: 0,
-                        max: 350,
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        }
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        title: {
-                            display: true,
-                            text: 'Torque [FT-LB]',
-                            color: 'rgba(54, 162, 235, 1)'
-                        },
-                        min: 0,
-                        max: 350,
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Engine Speed [RPM]',
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        },
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.7)'
-                        }
-                    }
-                },
-                elements: {
-                    point: {
-                        radius: 0
+            stacked: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'rgba(255, 255, 255, 0.7)'
                     }
                 }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'HorsePower [HP]',
+                        color: 'rgba(255, 99, 132, 1)'
+                    },
+                    min: 0,
+                    max: 500,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Torque [FT-LB]',
+                        color: 'rgba(54, 162, 235, 1)'
+                    },
+                    min: 0,
+                    max: 500,
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Engine Speed [RPM]',
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
             }
-        });
-    }
+        }
+    });
+
+
 </script>
 
 </html>

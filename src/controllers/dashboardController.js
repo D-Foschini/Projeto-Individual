@@ -81,7 +81,7 @@ function deleteveiculo(req, res) {
       })
       .catch(function (erro) {
         console.log(erro);
-        console.log("\nFailed to login! Error: ", erro.sqlMessage);
+        console.log("\nFailed to Delete Veiculo! Error: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
       });
   }
@@ -218,7 +218,10 @@ function cadastrarinfo(req, res) {
       })
       .catch(function (erro) {
         console.log(erro);
-        console.log("\nFailed to create vehicle! Error: ", erro.sqlMessage);
+        console.log(
+          "\nFailed to insert Informations! Error: ",
+          erro.sqlMessage
+        );
         res.status(500).json(erro.sqlMessage);
       });
   }

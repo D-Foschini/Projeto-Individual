@@ -56,8 +56,8 @@ function cadastrarveiculo(fk_cadastro, model, about) {
 
 function cadastrarinfo(
   fkServer,
-  barServer,
   massServer,
+  barServer,
   countryServer,
   yearServer,
   typeServer,
@@ -105,7 +105,7 @@ function cadastrarinfo(
         INSERT INTO informa (
             fkVeiculo, mass, bar, country, dtprod, tipo, trans, gear, drive, cylinder, motor, accelerate
         ) VALUES (
-            ${fkServer}, ${massServer}, ${barServer}, '${countryServer}', ${yearServer}, '${typeServer}', '${transmissionServer}', ${gearServer}, '${driveServer}', ${cylinderServer}, '${engineServer}', ${accelerationServer}
+            ${fkServer}, ${massServer}, ${barServer}, '${countryServer}', ${yearServer}, '${typeServer}', '${transmissionServer}', ${gearServer}, '${driveServer}', '${cylinderServer}', '${engineServer}', ${accelerationServer}
         );
 
         INSERT INTO grafico (
