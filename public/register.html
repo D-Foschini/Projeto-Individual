@@ -53,7 +53,8 @@
                     </button>
                 </div>
                 <div class="errolog" id="error_exists"></div>
-                <div class="text">Already have an account? Login <a style="color: #29aa63;"href="login.html">here</a></div>
+                <div class="text" id="confirmedd">Already have an account? Login <a style="color: #29aa63;"
+                        href="login.html">here</a></div>
             </div>
         </div>
     </div>
@@ -125,11 +126,11 @@
                     if (resposta.ok) {
 
                         error_exists.innerHTML =
-                            "Your account was registered, Redirecting to Login...";
+                            "Your account was registered!";
 
                         setTimeout(function () {
                             window.location = "login.html";
-                        }, 1000); // apenas para exibir o loading
+                        }, 2000); // apenas para exibir o loading
 
                         limparFormulario();
                     } else {

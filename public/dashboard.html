@@ -347,7 +347,6 @@
             });
     }
 
-
     function onc_exit() {
         sessionStorage.NOME_USUARIO = "";
         sessionStorage.ID_USUARIO = "";
@@ -480,20 +479,164 @@
         return false;
     }
 
+    function chk_dash() {
+        let bar = document.getElementById("inp_bar");
+        let mass = document.getElementById("inp_mass");
+        let contry = document.getElementById("inp_country");
+        let year = document.getElementById("inp_year");
+        let type = document.getElementById("inp_type");
+        let transmission = document.getElementById("inp_trans");
+        let gear = document.getElementById("inp_gearQtd");
+        let drive = document.getElementById("inp_drvTra");
+        let cylinder = document.getElementById("inp_cylinder");
+        let engine = document.getElementById("inp_model");
+        let acceleration = document.getElementById("inp_speed");
+
+        let hp_A = document.getElementById("inp_hp_10");
+        let hp_B = document.getElementById("inp_hp_15");
+        let hp_C = document.getElementById("inp_hp_20");
+        let hp_D = document.getElementById("inp_hp_25");
+        let hp_E = document.getElementById("inp_hp_30");
+        let hp_F = document.getElementById("inp_hp_35");
+        let hp_G = document.getElementById("inp_hp_40");
+        let hp_H = document.getElementById("inp_hp_45");
+        let hp_I = document.getElementById("inp_hp_50");
+        let hp_J = document.getElementById("inp_hp_55");
+        let hp_K = document.getElementById("inp_hp_60");
+        let hp_L = document.getElementById("inp_hp_65");
+        let hp_M = document.getElementById("inp_hp_70");
+        let hp_N = document.getElementById("inp_hp_75");
+        let hp_O = document.getElementById("inp_hp_80");
+
+        let trq_A = document.getElementById("inp_trq_10");
+        let trq_B = document.getElementById("inp_trq_15");
+        let trq_C = document.getElementById("inp_trq_20");
+        let trq_D = document.getElementById("inp_trq_25");
+        let trq_E = document.getElementById("inp_trq_30");
+        let trq_F = document.getElementById("inp_trq_35");
+        let trq_G = document.getElementById("inp_trq_40");
+        let trq_H = document.getElementById("inp_trq_45");
+        let trq_I = document.getElementById("inp_trq_50");
+        let trq_J = document.getElementById("inp_trq_55");
+        let trq_K = document.getElementById("inp_trq_60");
+        let trq_L = document.getElementById("inp_trq_65");
+        let trq_M = document.getElementById("inp_trq_70");
+        let trq_N = document.getElementById("inp_trq_75");
+
+        let trq_O = document.getElementById("inp_trq_80");
+
+        let model = document.getElementById("inp_car");
+        let aboutChk = document.getElementById("inp_about");
+
+        let valid = true;
+
+        if (model.value == "") {
+            model.placeholder = "EMPTY";
+            model.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (aboutChk.value == "") {
+            aboutChk.placeholder = "EMPTY";
+            aboutChk.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (bar.value == "") {
+            bar.placeholder = "EMPTY";
+            bar.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (mass.value == "") {
+            mass.placeholder = "EMPTY";
+            mass.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (contry.value == "") {
+            contry.placeholder = "EMPTY";
+            contry.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (year.value == "") {
+            year.placeholder = "EMPTY";
+            year.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (type.value == "") {
+            type.placeholder = "EMPTY";
+            type.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (transmission.value == "") {
+            transmission.placeholder = "EMPTY";
+            transmission.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (gear.value == "") {
+            gear.placeholder = "EMPTY";
+            gear.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (drive.value == "") {
+            drive.placeholder = "EMPTY";
+            drive.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (cylinder.value == "") {
+            cylinder.placeholder = "EMPTY";
+            cylinder.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (engine.value == "") {
+            engine.placeholder = "EMPTY";
+            engine.style = "border: solid 2px red;";
+            valid = false;
+        }
+        if (acceleration.value == "") {
+            acceleration.placeholder = "EMPTY";
+            acceleration.style = "border: solid 2px red;";
+            valid = false;
+        }
+
+        if (hp_A.value == "") { hp_A.placeholder = "EMPTY"; hp_A.style = "border: solid 2px red;"; valid = false; }
+        if (hp_B.value == "") { hp_B.placeholder = "EMPTY"; hp_B.style = "border: solid 2px red;"; valid = false; }
+        if (hp_C.value == "") { hp_C.placeholder = "EMPTY"; hp_C.style = "border: solid 2px red;"; valid = false; }
+        if (hp_D.value == "") { hp_D.placeholder = "EMPTY"; hp_D.style = "border: solid 2px red;"; valid = false; }
+        if (hp_E.value == "") { hp_E.placeholder = "EMPTY"; hp_E.style = "border: solid 2px red;"; valid = false; }
+        if (hp_F.value == "") { hp_F.placeholder = "EMPTY"; hp_F.style = "border: solid 2px red;"; valid = false; }
+        if (hp_G.value == "") { hp_G.placeholder = "EMPTY"; hp_G.style = "border: solid 2px red;"; valid = false; }
+        if (hp_H.value == "") { hp_H.placeholder = "EMPTY"; hp_H.style = "border: solid 2px red;"; valid = false; }
+        if (hp_I.value == "") { hp_I.placeholder = "EMPTY"; hp_I.style = "border: solid 2px red;"; valid = false; }
+        if (hp_J.value == "") { hp_J.placeholder = "EMPTY"; hp_J.style = "border: solid 2px red;"; valid = false; }
+        if (hp_K.value == "") { hp_K.placeholder = "EMPTY"; hp_K.style = "border: solid 2px red;"; valid = false; }
+        if (hp_L.value == "") { hp_L.placeholder = "EMPTY"; hp_L.style = "border: solid 2px red;"; valid = false; }
+        if (hp_M.value == "") { hp_M.placeholder = "EMPTY"; hp_M.style = "border: solid 2px red;"; valid = false; }
+        if (hp_N.value == "") { hp_N.placeholder = "EMPTY"; hp_N.style = "border: solid 2px red;"; valid = false; }
+        if (hp_O.value == "") { hp_O.placeholder = "EMPTY"; hp_O.style = "border: solid 2px red;"; valid = false; }
+
+        if (trq_A.value == "") { trq_A.placeholder = "EMPTY"; trq_A.style = "border: solid 2px red;"; valid = false; }
+        if (trq_B.value == "") { trq_B.placeholder = "EMPTY"; trq_B.style = "border: solid 2px red;"; valid = false; }
+        if (trq_C.value == "") { trq_C.placeholder = "EMPTY"; trq_C.style = "border: solid 2px red;"; valid = false; }
+        if (trq_D.value == "") { trq_D.placeholder = "EMPTY"; trq_D.style = "border: solid 2px red;"; valid = false; }
+        if (trq_E.value == "") { trq_E.placeholder = "EMPTY"; trq_E.style = "border: solid 2px red;"; valid = false; }
+        if (trq_F.value == "") { trq_F.placeholder = "EMPTY"; trq_F.style = "border: solid 2px red;"; valid = false; }
+        if (trq_G.value == "") { trq_G.placeholder = "EMPTY"; trq_G.style = "border: solid 2px red;"; valid = false; }
+        if (trq_H.value == "") { trq_H.placeholder = "EMPTY"; trq_H.style = "border: solid 2px red;"; valid = false; }
+        if (trq_I.value == "") { trq_I.placeholder = "EMPTY"; trq_I.style = "border: solid 2px red;"; valid = false; }
+        if (trq_J.value == "") { trq_J.placeholder = "EMPTY"; trq_J.style = "border: solid 2px red;"; valid = false; }
+        if (trq_K.value == "") { trq_K.placeholder = "EMPTY"; trq_K.style = "border: solid 2px red;"; valid = false; }
+        if (trq_L.value == "") { trq_L.placeholder = "EMPTY"; trq_L.style = "border: solid 2px red;"; valid = false; }
+        if (trq_M.value == "") { trq_M.placeholder = "EMPTY"; trq_M.style = "border: solid 2px red;"; valid = false; }
+        if (trq_N.value == "") { trq_N.placeholder = "EMPTY"; trq_N.style = "border: solid 2px red;"; valid = false; }
+        if (trq_O.value == "") { trq_O.placeholder = "EMPTY"; trq_O.style = "border: solid 2px red;"; valid = false; }
+
+        return valid;
+    }
     // INSERT EM VEICULO (INSERT VEICULO)
     function onc_confirm() {
-
         //informações basicas do carro  
         let model = document.getElementById("inp_car").value;
         let about = document.getElementById("inp_about").value;
-        let valid = true;
 
-        // Fazendo validação dos campos (aceitavel ter algo em branco)
-        if (model == "") {
-            model.placeholder = "MUST HAVE A MODEL NAME"
-            model.style = "border: solid 2px red;"
-            valid = false;
-        }
+
         function limparFormulario() {
             document.getElementById("inp_bar").value = "";
             document.getElementById("inp_mass").value = "";
@@ -551,8 +694,7 @@
             document.getElementById("inp_trq_top").value = "";
             document.getElementById("inp_hp_top").value = "";
         }
-
-        if (valid == true) {
+        if (chk_dash() === true) {
             // Enviando o valor da nova input
             fetch("/veiculos/cadastrarveiculo", {
                 method: "POST",
